@@ -16,9 +16,12 @@
   },
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "customWebpackConfig": {
+          "path": "apps/blog/webpack.config.ts"
+        },
         "outputPath": "dist/apps/blog/browser",
         "index": "apps/blog/src/index.html",
         "main": "apps/blog/src/main.ts",
@@ -58,7 +61,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:webpack-dev-server",
       "configurations": {
         "production": {
           "browserTarget": "blog:build:production"
@@ -96,14 +99,8 @@
         }
       }
     },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "blog:build"
-      }
-    },
     "server": {
-      "executor": "@angular-devkit/build-angular:server",
+      "executor": "@nx/angular:webpack-server",
       "options": {
         "outputPath": "dist/apps/blog/server",
         "main": "apps/blog/server.ts",
