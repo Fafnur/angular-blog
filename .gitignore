@@ -39,3 +39,17 @@ testem.log
 Thumbs.db
 
 .angular
+
+# Custom
+/mocks/tmp
+/apps/**/src/assets/locale
+package-lock.json
+.env
+/apps/**/.env
+/apps/**/source.xlf
+.husky/*
+junit.xml
+/junit
+/apps/**/dynamic-routes.txt
+.yarnrc
+yarn.lock

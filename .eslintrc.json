@@ -1,7 +1,11 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "plugins": ["@typescript-eslint", "prettier", "simple-import-sort", "import", "@angular-eslint/eslint-plugin-template", "@nx", "jsdoc"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -22,9 +26,74 @@
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
-      "rules": {}
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": "./tsconfig.*?.json",
+        "createDefaultProgram": true
+      },
+      "extends": ["plugin:@nx/typescript", "plugin:@nx/angular", "plugin:import/recommended"],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "default",
+            "format": ["camelCase"],
+            "leadingUnderscore": "allow",
+            "trailingUnderscore": "allow",
+            "filter": {
+              "regex": "^(ts-jest|\\^.*)$",
+              "match": false
+            }
+          },
+          {
+            "selector": "default",
+            "format": ["camelCase"],
+            "leadingUnderscore": "allow",
+            "trailingUnderscore": "allow"
+          },
+          {
+            "selector": "variable",
+            "format": ["camelCase", "UPPER_CASE"],
+            "leadingUnderscore": "allow",
+            "trailingUnderscore": "allow"
+          },
+          {
+            "selector": "typeLike",
+            "format": ["PascalCase"]
+          },
+          {
+            "selector": "enumMember",
+            "format": ["PascalCase"]
+          }
+        ],
+        "complexity": "error",
+        "max-len": [
+          "error",
+          {
+            "code": 140
+          }
+        ],
+        "no-new-wrappers": "error",
+        "no-throw-literal": "error",
+        "import/no-unresolved": "off",
+        "simple-import-sort/exports": "error",
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [["^\\u0000"], ["^@?(?!angular-blog)\\w"], ["^@angular-blog?\\w"], ["^\\w"], ["^[^.]"], ["^\\."]]
+          }
+        ],
+        "sort-imports": "off",
+        "import/named": "off",
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error",
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "error",
+        "no-invalid-this": "off",
+        "@typescript-eslint/no-invalid-this": ["warn"]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
@@ -32,11 +101,20 @@
       "rules": {}
     },
     {
-      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
-      "env": {
-        "jest": true
-      },
-      "rules": {}
+      "files": ["*.html"],
+      "extends": ["plugin:@nx/angular-template"],
+      "rules": {
+        "max-len": [
+          "error",
+          {
+            "code": 140
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.component.ts"],
+      "extends": ["plugin:@angular-eslint/template/process-inline-templates"]
     }
   ]
 }

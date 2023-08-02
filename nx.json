@@ -1,5 +1,13 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "angular-blog",
+  "cli": {
+    "packageManager": "yarn",
+    "defaultCollection": "@nx/angular"
+  },
+  "affected": {
+    "defaultBase": "develop"
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
@@ -20,11 +28,7 @@
       "inputs": ["default", "^production"]
     },
     "lint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore"
-      ]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/.eslintignore"]
     }
   },
   "namedInputs": {
@@ -52,7 +56,15 @@
       "unitTestRunner": "jest"
     },
     "@nx/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "changeDetection": "OnPush",
+      "standalone": true
+    },
+    "@schematics/angular:component": {
+      "style": "scss",
+      "changeDetection": "OnPush",
+      "standalone": true
     }
-  }
+  },
+  "defaultProject": "blog"
 }

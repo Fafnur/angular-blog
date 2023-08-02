@@ -1,0 +1,14 @@
+# You can see what browsers were selected by your queries by running:
+#   npx browserslist
+>0.3%
+last 2 Chrome version
+last 2 Firefox version
+last 2 Edge major versions
+last 2 Safari major versions
+last 2 iOS major versions
+Firefox ESR
+Chrome > 60
+Firefox > 60
+not ios_saf 12.2-12.6
+not op_mini all
+not dead

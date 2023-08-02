@@ -5,19 +5,33 @@
   "prefix": "angular-blog",
   "sourceRoot": "apps/blog/src",
   "tags": [],
+  "i18n": {
+    "sourceLocale": "en-US",
+    "locales": {
+      "ru": {
+        "translation": "apps/blog/src/i18n/messages.xlf",
+        "baseHref": ""
+      }
+    }
+  },
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/blog",
+        "customWebpackConfig": {
+          "path": "apps/blog/webpack.config.ts"
+        },
+        "outputPath": "dist/apps/blog/browser",
         "index": "apps/blog/src/index.html",
         "main": "apps/blog/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/blog/tsconfig.app.json",
         "assets": ["apps/blog/src/favicon.ico", "apps/blog/src/assets"],
         "styles": ["apps/blog/src/styles.scss"],
-        "scripts": []
+        "allowedCommonJsDependencies": ["hammerjs"],
+        "scripts": [],
+        "localize": ["ru"]
       },
       "configurations": {
         "production": {
@@ -47,7 +61,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:webpack-dev-server",
       "configurations": {
         "production": {
           "browserTarget": "blog:build:production"
@@ -85,11 +99,59 @@
         }
       }
     },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
+    "server": {
+      "executor": "@nx/angular:webpack-server",
       "options": {
-        "buildTarget": "blog:build"
-      }
+        "outputPath": "dist/apps/blog/server",
+        "main": "apps/blog/server.ts",
+        "tsConfig": "apps/blog/tsconfig.server.json",
+        "localize": ["ru"]
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "blog:build:development",
+          "serverTarget": "blog:server:development"
+        },
+        "production": {
+          "browserTarget": "blog:build:production",
+          "serverTarget": "blog:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": ["/"],
+        "guessRoutes": false
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "blog:build:production",
+          "serverTarget": "blog:server:production"
+        },
+        "development": {
+          "browserTarget": "blog:build:development",
+          "serverTarget": "blog:server:development"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   }
 }
