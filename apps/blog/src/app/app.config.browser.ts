@@ -1,3 +1,5 @@
+import 'hammerjs';
+
 import { ApplicationConfig, mergeApplicationConfig } from '@angular/core';
 
 import { appConfig } from './app.config';
