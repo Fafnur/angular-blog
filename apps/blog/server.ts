@@ -2,6 +2,7 @@ import 'zone.js/node';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
+import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -11,7 +12,9 @@ import bootstrap from './src/main.server';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/apps/module-to-standalone/browser/ru');
+  server.use(cookieParser());
+
+  const distFolder = join(process.cwd(), 'dist/apps/blog/browser/ru');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
@@ -33,7 +36,8 @@ export function app(): express.Express {
     const prerender = join(distFolder, req.path, 'index.html');
 
     if (existsSync(prerender)) {
-      res.sendFile(prerender);
+      const { themePreference } = req.cookies;
+      res.sendFile(themePreference === 'light' ? prerender.replace('browser/ru', 'browser/ru/light') : prerender);
     } else {
       res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
     }

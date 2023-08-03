@@ -4,10 +4,7 @@
   </button>
   <span>Angular & Content</span>
   <span class="spacer"></span>
-  <button mat-icon-button [color]="!isDark ? 'primary' : undefined" aria-label="Switch to light mode" (click)="onSwitchMode(false)">
-    <mat-icon>light_mode</mat-icon>
-  </button>
-  <button mat-icon-button [color]="isDark ? 'primary' : undefined" aria-label="Switch to dark mode" (click)="onSwitchMode(true)">
+  <button mat-icon-button aria-label="Toggle dark and light modes" (click)="onToggle()">
     <mat-icon>dark_mode</mat-icon>
   </button>
 </mat-toolbar>

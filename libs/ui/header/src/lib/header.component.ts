@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { tap } from 'rxjs';
 
-import { WindowService } from '@angular-blog/core';
+import { CookieService, WindowService } from '@angular-blog/core';
 
 @Component({
   selector: 'angular-blog-header',
@@ -25,35 +25,38 @@ export class HeaderComponent implements OnInit {
   constructor(
     private readonly platform: Platform,
     private readonly windowService: WindowService,
+    private readonly cookieService: CookieService,
     private readonly destroyRef: DestroyRef,
     @Inject(DOCUMENT) private readonly document: Document
   ) {}
 
+  get mode(): string {
+    return this.isDark ? 'dark' : 'light';
+  }
+
   ngOnInit(): void {
     if (this.platform.isBrowser) {
       const prefers = this.windowService.window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const themePreference = this.windowService.window.localStorage.getItem('themePreference');
+      const themePreference = this.cookieService.get('themePreference');
 
-      this.isDark = themePreference ? themePreference === 'true' : prefers ?? true;
+      this.isDark = themePreference ? themePreference === 'dark' : prefers ?? true;
       this.control = new FormControl<boolean>(this.isDark, { nonNullable: true });
-      this.document.documentElement.setAttribute('data-theme', this.isDark ? 'dark' : 'light');
+      this.document.documentElement.setAttribute('data-theme', this.mode);
 
       this.control.valueChanges
         .pipe(
           tap((dark) => {
             this.isDark = dark;
-            this.windowService.window.localStorage.setItem('themePreference', dark.toString());
-            this.document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+            this.cookieService.set('themePreference', this.mode);
+            this.document.documentElement.setAttribute('data-theme', this.mode);
           }),
           takeUntilDestroyed(this.destroyRef)
         )
         .subscribe();
-    } else {
-      this.document.documentElement.setAttribute('data-theme', this.isDark ? 'dark' : 'light');
     }
   }
 
-  onSwitchMode(isDark: boolean): void {
-    this.control.patchValue(isDark);
+  onToggle(): void {
+    this.control.patchValue(!this.isDark);
   }
 }

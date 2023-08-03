@@ -1,1 +1,2 @@
+export * from './lib/cookies/cookie.service';
 export * from './lib/window/window.service';
