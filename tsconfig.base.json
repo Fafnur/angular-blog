@@ -14,7 +14,18 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@angular-blog/core": ["libs/core/src/index.ts"],
+      "@angular-blog/posts/category/page": ["libs/posts/category/page/src/index.ts"],
+      "@angular-blog/posts/common": ["libs/posts/common/src/index.ts"],
+      "@angular-blog/posts/page": ["libs/posts/page/src/index.ts"],
+      "@angular-blog/posts/ui/card": ["libs/posts/ui/card/src/index.ts"],
+      "@angular-blog/posts/ui/list": ["libs/posts/ui/list/src/index.ts"],
+      "@angular-blog/posts/view/page": ["libs/posts/view/page/src/index.ts"],
+      "@angular-blog/ui/footer": ["libs/ui/footer/src/index.ts"],
+      "@angular-blog/ui/header": ["libs/ui/header/src/index.ts"],
+      "@angular-blog/ui/layout": ["libs/ui/layout/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
