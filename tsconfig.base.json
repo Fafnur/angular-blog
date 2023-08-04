@@ -22,7 +22,9 @@
       "@angular-blog/posts/ui/card": ["libs/posts/ui/card/src/index.ts"],
       "@angular-blog/posts/ui/list": ["libs/posts/ui/list/src/index.ts"],
       "@angular-blog/posts/view/page": ["libs/posts/view/page/src/index.ts"],
+      "@angular-blog/ui/container": ["libs/ui/container/src/index.ts"],
       "@angular-blog/ui/footer": ["libs/ui/footer/src/index.ts"],
+      "@angular-blog/ui/grid": ["libs/ui/grid/src/index.ts"],
       "@angular-blog/ui/header": ["libs/ui/header/src/index.ts"],
       "@angular-blog/ui/layout": ["libs/ui/layout/src/index.ts"]
     }
