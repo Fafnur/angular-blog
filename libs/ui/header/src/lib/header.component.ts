@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { tap } from 'rxjs';
 
 import { CookieService, WindowService } from '@angular-blog/core';
+import { ContainerComponent } from '@angular-blog/ui/container';
 
 @Component({
   selector: 'angular-blog-header',
@@ -16,7 +17,7 @@ import { CookieService, WindowService } from '@angular-blog/core';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule],
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, ContainerComponent],
 })
 export class HeaderComponent implements OnInit {
   control!: FormControl<boolean>;

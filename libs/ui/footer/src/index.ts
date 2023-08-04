@@ -1,1 +1,1 @@
-export * from './lib/ui-footer.module';
+export * from './lib/footer.component';

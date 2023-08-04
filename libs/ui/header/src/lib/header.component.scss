@@ -1,24 +1,7 @@
 :host {
-  display: flex;
-  min-height: 100%;
-  flex-direction: column;
-  width: 100%;
-}
-
-header,
-footer {
-  flex-shrink: 0;
-}
-
-main {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-  & > * {
-    width: 100%;
-  }
+  display: block;
+  background-color: var(--mat-toolbar-container-background-color);
+  color: var(--mat-toolbar-container-text-color);
 }
 
 .spacer {
