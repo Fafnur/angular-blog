@@ -19,6 +19,10 @@ export const appRoutes: Route[] = [
         component: FooterComponent,
         outlet: 'footer',
       },
+      {
+        path: '',
+        loadComponent: () => import('@angular-blog/posts/page').then((modules) => modules.PostPageComponent),
+      },
     ],
   },
 ];

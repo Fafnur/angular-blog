@@ -13,3 +13,8 @@ body {
   color: variables.$color-default;
   font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, Lucida Grande, sans-serif;
 }
+
+body {
+  color: var(--mat-sidenav-container-text-color);
+  background-color: var(--mat-sidenav-container-background-color);
+}

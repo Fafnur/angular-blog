@@ -1,1 +1,1 @@
-export * from './lib/posts-page.module';
+export * from './lib/post-page.component';
