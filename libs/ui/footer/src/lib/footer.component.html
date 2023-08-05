@@ -1,5 +1,12 @@
-<angular-blog-container>
-  <div>All rights reserved</div>
+<angular-blog-container class="container">
+  <div>©{{ year }} All rights reserved</div>
   <span class="spacer"></span>
-  <span>{{ year }}</span>
+  <span class="market-links">
+    <a class="link" href="https://www.apple.com/app-store" target="_blank">
+      <mat-icon svgIcon="app_store"></mat-icon>
+    </a>
+    <a class="link" href="https://play.google.com" target="_blank">
+      <mat-icon svgIcon="play_store"></mat-icon>
+    </a>
+  </span>
 </angular-blog-container>
