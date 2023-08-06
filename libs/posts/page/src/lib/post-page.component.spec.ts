@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
-import { MockComponent, MockDirectives, MockModule } from 'ng-mocks';
+import { MockComponents, MockDirectives, MockModule } from 'ng-mocks';
 
 import { ContainerComponent } from '@angular-blog/ui/container';
 import { ColumnComponent, RowComponent, TabletDirective, WebDirective } from '@angular-blog/ui/grid';
+import { TitleComponent } from '@angular-blog/ui/title';
 
 import { PostPageComponent } from './post-page.component';
 
@@ -15,9 +16,7 @@ describe('PostPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         PostPageComponent,
-        MockComponent(ContainerComponent),
-        MockComponent(RowComponent),
-        MockComponent(ColumnComponent),
+        MockComponents(ContainerComponent, RowComponent, ColumnComponent, TitleComponent),
         MockModule(MatIconModule),
         MockDirectives(TabletDirective, WebDirective),
       ],

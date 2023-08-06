@@ -1,1 +1,1 @@
-export * from './lib/posts-common.module';
+export * from './lib/post.interface';
