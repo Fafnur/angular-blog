@@ -1,1 +1,15 @@
-<p>menu works!</p>
+<mat-sidenav-container (click)="sidenav.toggle()">
+  <mat-sidenav #sidenav class="sidenav" mode="side" position="start" [fixedInViewport]="true" [fixedTopGap]="0" [fixedBottomGap]="0">
+    <header>
+      <button mat-icon-button class="menu-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </header>
+    <nav>
+      <angular-blog-categories></angular-blog-categories>
+    </nav>
+  </mat-sidenav>
+</mat-sidenav-container>
+<button mat-icon-button (click)="sidenav.toggle()">
+  <mat-icon>menu</mat-icon>
+</button>

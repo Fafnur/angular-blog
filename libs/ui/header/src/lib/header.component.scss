@@ -2,9 +2,13 @@
   display: block;
   background-color: var(--mat-toolbar-container-background-color);
   color: var(--mat-toolbar-container-text-color);
+  margin-bottom: 1rem;
+}
 
-  mat-toolbar {
-    padding: 0;
-    justify-content: space-between;
+mat-toolbar {
+  padding: 0;
+
+  > span {
+    flex: 1 1 auto;
   }
 }

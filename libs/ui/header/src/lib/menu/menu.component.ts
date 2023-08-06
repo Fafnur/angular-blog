@@ -1,6 +1,11 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { categories } from './menu.categories';
+import { CategoriesComponent } from '@angular-blog/ui/categories';
 
 @Component({
   selector: 'angular-blog-menu',
@@ -8,8 +13,6 @@ import { categories } from './menu.categories';
   styleUrls: ['./menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [],
+  imports: [NgFor, RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, MatSidenavModule, CategoriesComponent],
 })
-export class MenuComponent {
-  readonly categories = categories;
-}
+export class MenuComponent {}

@@ -27,13 +27,11 @@ function generateBlogRoutes(project: string): void {
 }
 
 function generateCategories(): void {
-  const files = [`libs/ui/header/src/lib/menu/menu.categories.ts`, 'libs/posts/ui/categories/src/lib/post.categories.ts'];
-  files.forEach((file) => {
-    const path = join(process.cwd(), file);
-    if (!existsSync(path)) {
-      writeFileSync(file, `import { Category } from '@angular-blog/posts/common';\n\nexport const categories: Category[] = [];`);
-    }
-  });
+  const file = 'libs/ui/categories/src/lib/categories.ts';
+  const path = join(process.cwd(), file);
+  if (!existsSync(path)) {
+    writeFileSync(file, `import { Category } from '@angular-blog/posts/common';\n\nexport const categories: Category[] = [];`);
+  }
 }
 
 const project = 'blog';

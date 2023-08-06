@@ -1,9 +1,7 @@
-import { NgForOf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { RouterLink } from '@angular/router';
 
-import { categories } from './post.categories';
+import { CategoriesComponent } from '@angular-blog/ui/categories';
 
 @Component({
   selector: 'angular-blog-post-categories',
@@ -11,8 +9,6 @@ import { categories } from './post.categories';
   styleUrls: ['./post-categories.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [RouterLink, NgForOf, MatCardModule],
+  imports: [MatCardModule, CategoriesComponent],
 })
-export class PostCategoriesComponent {
-  readonly categories = categories.slice(0, 10);
-}
+export class PostCategoriesComponent {}

@@ -1,0 +1,31 @@
+@use 'libs/ui/grid/mixins' as grid;
+
+:host {
+  @include grid.media-tablet-up() {
+    display: none;
+  }
+}
+
+mat-sidenav-container {
+  position: fixed;
+  z-index: 100;
+}
+
+mat-sidenav {
+  width: 100%;
+  left: 0;
+}
+
+header {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: var(--mat-toolbar-mobile-height);
+  background-color: var(--mat-toolbar-container-background-color);
+  color: var(--mat-toolbar-container-text-color);
+}
+
+nav {
+  display: block;
+  padding: 1rem;
+}

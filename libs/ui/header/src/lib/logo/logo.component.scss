@@ -1,8 +1,13 @@
-.logo {
-  padding: 0 1rem;
-  margin-left: -1rem;
+:host {
+  display: block;
+  height: 25px;
+}
 
-  svg {
-    fill: var(--mat-toolbar-container-text-color);
-  }
+a {
+  text-decoration: none;
+}
+
+svg {
+  fill: var(--mat-toolbar-container-text-color);
+  height: 25px;
 }
