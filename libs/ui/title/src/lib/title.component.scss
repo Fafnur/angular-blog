@@ -1,0 +1,10 @@
+@use 'libs/ui/grid/mixins' as grid;
+
+:host {
+  margin: 1rem 0;
+  font-size: 1.25rem;
+
+  @include grid.media-tablet-up() {
+    font-size: 1.5rem;
+  }
+}

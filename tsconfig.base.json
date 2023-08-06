@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@angular-blog/contentful/common": ["libs/contentful/common/src/index.ts"],
       "@angular-blog/core": ["libs/core/src/index.ts"],
       "@angular-blog/posts/category/page": ["libs/posts/category/page/src/index.ts"],
       "@angular-blog/posts/common": ["libs/posts/common/src/index.ts"],
@@ -26,7 +27,8 @@
       "@angular-blog/ui/footer": ["libs/ui/footer/src/index.ts"],
       "@angular-blog/ui/grid": ["libs/ui/grid/src/index.ts"],
       "@angular-blog/ui/header": ["libs/ui/header/src/index.ts"],
-      "@angular-blog/ui/layout": ["libs/ui/layout/src/index.ts"]
+      "@angular-blog/ui/layout": ["libs/ui/layout/src/index.ts"],
+      "@angular-blog/ui/title": ["libs/ui/title/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
