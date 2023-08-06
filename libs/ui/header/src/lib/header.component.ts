@@ -1,15 +1,11 @@
-import { Platform } from '@angular/cdk/platform';
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, Inject, OnInit } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { tap } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { CookieService, WindowService } from '@angular-blog/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 import { ContainerComponent } from '@angular-blog/ui/container';
+
+import { LogoComponent } from './logo/logo.component';
+import { ThemeSwitcherComponent } from './theme-switcher/theme-switcher.component';
 
 @Component({
   selector: 'angular-blog-header',
@@ -17,47 +13,6 @@ import { ContainerComponent } from '@angular-blog/ui/container';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, ContainerComponent],
+  imports: [MatToolbarModule, ThemeSwitcherComponent, ContainerComponent, LogoComponent],
 })
-export class HeaderComponent implements OnInit {
-  control!: FormControl<boolean>;
-  isDark = true;
-
-  constructor(
-    private readonly platform: Platform,
-    private readonly windowService: WindowService,
-    private readonly cookieService: CookieService,
-    private readonly destroyRef: DestroyRef,
-    @Inject(DOCUMENT) private readonly document: Document
-  ) {}
-
-  get mode(): string {
-    return this.isDark ? 'dark' : 'light';
-  }
-
-  ngOnInit(): void {
-    if (this.platform.isBrowser) {
-      const prefers = this.windowService.window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const themePreference = this.cookieService.get('themePreference');
-
-      this.isDark = themePreference ? themePreference === 'dark' : prefers ?? true;
-      this.control = new FormControl<boolean>(this.isDark, { nonNullable: true });
-      this.document.documentElement.setAttribute('data-theme', this.mode);
-
-      this.control.valueChanges
-        .pipe(
-          tap((dark) => {
-            this.isDark = dark;
-            this.cookieService.set('themePreference', this.mode);
-            this.document.documentElement.setAttribute('data-theme', this.mode);
-          }),
-          takeUntilDestroyed(this.destroyRef)
-        )
-        .subscribe();
-    }
-  }
-
-  onToggle(): void {
-    this.control.patchValue(!this.isDark);
-  }
-}
+export class HeaderComponent {}

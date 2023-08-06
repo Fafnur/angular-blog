@@ -2,8 +2,9 @@
   display: block;
   background-color: var(--mat-toolbar-container-background-color);
   color: var(--mat-toolbar-container-text-color);
-}
 
-.spacer {
-  flex: 1 1 auto;
+  mat-toolbar {
+    padding: 0;
+    justify-content: space-between;
+  }
 }

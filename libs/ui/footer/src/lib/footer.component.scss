@@ -44,9 +44,11 @@ mat-icon {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  margin-top: 1rem;
 
   @include grid.media-tablet-up() {
     flex-direction: row;
+    margin-top: 0;
   }
 }
 
