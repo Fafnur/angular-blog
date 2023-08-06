@@ -1,6 +1,7 @@
 @use 'libs/ui/grid/mixins' as grid;
 
 :host {
+  display: block;
   margin: 1rem 0;
   font-size: 1.25rem;
 

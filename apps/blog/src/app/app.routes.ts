@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 
+import { PostLayoutComponent } from '@angular-blog/posts/ui/layout';
 import { FooterComponent } from '@angular-blog/ui/footer';
 import { HeaderComponent } from '@angular-blog/ui/header';
 import { LayoutComponent } from '@angular-blog/ui/layout';
@@ -16,12 +17,27 @@ export const appRoutes: Route[] = [
       },
       {
         path: '',
+        component: HeaderComponent,
+        outlet: 'header',
+      },
+      {
+        path: '',
         component: FooterComponent,
         outlet: 'footer',
       },
       {
         path: '',
-        loadComponent: () => import('@angular-blog/posts/page').then((modules) => modules.PostPageComponent),
+        component: PostLayoutComponent,
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('@angular-blog/posts/page').then((modules) => modules.PostPageComponent),
+          },
+          {
+            path: '',
+            loadChildren: () => import('./routes/blog.routes').then((modules) => modules.blogRoutes),
+          },
+        ],
       },
     ],
   },

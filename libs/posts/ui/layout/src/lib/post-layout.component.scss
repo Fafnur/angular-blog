@@ -1,0 +1,9 @@
+@use 'libs/ui/grid/mixins' as grid;
+
+.no-mobile {
+  display: none;
+
+  @include grid.media-tablet-up() {
+    display: block;
+  }
+}
