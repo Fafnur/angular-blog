@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Service for creating custom svg icons using Angular Material icons.
+ * @publicApi
  *
  * @example
  * // Add service on constructor on your component. On constructor call method add.
