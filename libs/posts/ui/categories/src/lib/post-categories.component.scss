@@ -1,0 +1,13 @@
+mat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--mat-sidenav-container-text-color);
+  background-color: var(--mat-toolbar-container-background-color);
+  padding: 1rem;
+}
+
+a {
+  color: var(--mat-sidenav-container-text-color);
+  text-decoration: underline;
+}

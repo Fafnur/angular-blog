@@ -1,1 +1,3 @@
-<p>post-categories works!</p>
+<mat-card>
+  <a [routerLink]="['/', 'category', category.slug]" *ngFor="let category of categories">{{ category.name }}</a>
+</mat-card>
