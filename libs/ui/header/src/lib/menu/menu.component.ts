@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+import { categories } from './menu.categories';
+
 @Component({
   selector: 'angular-blog-menu',
   templateUrl: './menu.component.html',
@@ -8,4 +10,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   imports: [],
 })
-export class MenuComponent {}
+export class MenuComponent {
+  readonly categories = categories;
+}

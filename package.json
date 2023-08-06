@@ -20,9 +20,9 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "---- App ----": "",
-    "release": "ts-node ./scripts/release.ts",
+    "envs": "ts-node ./scripts/envs.ts",
     "---- Hooks ----": "",
-    "prepare": "husky install"
+    "prepare": "husky install && yarn envs"
   },
   "private": true,
   "contributors": [

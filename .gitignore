@@ -53,3 +53,6 @@ junit.xml
 /apps/**/dynamic-routes.txt
 .yarnrc
 yarn.lock
+/apps/**/routes/blog.routes.ts
+libs/ui/header/src/lib/menu/menu.categories.ts
+libs/posts/ui/categories/src/lib/post.categories.ts
