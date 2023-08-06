@@ -6,22 +6,9 @@
   background-color: var(--mat-toolbar-container-background-color);
   padding: 1rem 0;
   gap: 8px;
-
-  ::ng-deep {
-    .background {
-      fill: var(--mat-toolbar-container-text-color);
-    }
-    .logo {
-      fill: var(--mat-toolbar-container-background-color);
-    }
-  }
 }
 
-.spacer {
-  flex: 1 1 auto;
-}
-
-.container {
+angular-blog-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,28 +18,4 @@
     flex-direction: row;
     justify-content: space-between;
   }
-}
-
-mat-icon {
-  width: 100%;
-  height: 30px;
-}
-
-.market-links {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-
-  @include grid.media-tablet-up() {
-    flex-direction: row;
-    margin-top: 0;
-  }
-}
-
-.link {
-  line-height: 1;
-  height: 30px;
 }

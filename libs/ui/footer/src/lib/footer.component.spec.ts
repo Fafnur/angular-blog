@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatIconModule } from '@angular/material/icon';
-import { MockComponent, MockModule } from 'ng-mocks';
+import { MockComponents } from 'ng-mocks';
 
 import { ContainerComponent } from '@angular-blog/ui/container';
 
+import { CopyrightComponent } from './copyright/copyright.component';
 import { FooterComponent } from './footer.component';
+import { MarketsComponent } from './markets/markets.component';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -12,7 +13,7 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FooterComponent, MockComponent(ContainerComponent), MockModule(MatIconModule)],
+      imports: [FooterComponent, MockComponents(ContainerComponent, MarketsComponent, CopyrightComponent)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FooterComponent);

@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 
-import { IconService } from '@angular-blog/core';
 import { ContainerComponent } from '@angular-blog/ui/container';
 
-import { appStore, playStore } from './footer.icons';
+import { CopyrightComponent } from './copyright/copyright.component';
+import { MarketsComponent } from './markets/markets.component';
 
 @Component({
   selector: 'angular-blog-footer',
@@ -12,13 +11,6 @@ import { appStore, playStore } from './footer.icons';
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ContainerComponent, MatIconModule],
+  imports: [ContainerComponent, MarketsComponent, CopyrightComponent],
 })
-export class FooterComponent {
-  readonly year = new Date().getFullYear();
-
-  constructor(private readonly iconService: IconService) {
-    this.iconService.add('app_store', appStore);
-    this.iconService.add('play_store', playStore);
-  }
-}
+export class FooterComponent {}
