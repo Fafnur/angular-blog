@@ -32,84 +32,32 @@ export interface Author {
   /**
    * Email
    */
-  readonly email?: string;
+  readonly email: string;
+
+  /**
+   * Bio
+   */
+  readonly bio?: string;
+
+  /**
+   * Avatar
+   */
+  readonly avatar: string;
 }
 
 /**
  * Author DTO
  */
-export type ContentfulAuthor = ContentfulEntity<Author>;
-
-/**
- * Post DTO
- */
-export type ContentfulPost = ContentfulEntity<{
-  /**
-   * Meta title
-   */
-  readonly title: string;
-
-  /**
-   * Meta description
-   */
-  readonly description: string;
-
-  /**
-   * Category sys link
-   */
-  readonly category: {
-    readonly sys: ContentfulSys;
-  };
-
-  /**
-   * Image sys link
-   */
-  readonly image: {
-    readonly sys: ContentfulSys;
-  };
-
-  /**
-   * Author sys link
-   */
-  readonly author: {
-    readonly sys: ContentfulSys;
-  };
-
-  /**
-   * Title
-   */
-  readonly headline: string;
-
-  /**
-   * Intro
-   */
-  readonly intro: string;
-
-  /**
-   * Slug
-   */
-  readonly slug: string;
-
-  /**
-   * Body
-   */
-  readonly body: string;
-
-  /**
-   * Published date
-   */
-  readonly published?: string;
-
-  /**
-   * Count views
-   */
-  readonly views?: number;
-
-  /**
-   * Reading time in minutes
-   */
-  readonly readingTime?: number;
-}>;
+export type ContentfulAuthor = ContentfulEntity<
+  Omit<Author, 'avatar'> & {
+    /**
+     * Avatar asset
+     */
+    readonly avatar: {
+      readonly sys: ContentfulSys;
+    };
+  }
+>;
 
 /**
  * Post entity for blog
@@ -180,3 +128,31 @@ export interface Post {
    */
   readonly readingTime?: number;
 }
+
+/**
+ * Post DTO
+ */
+export type ContentfulPost = ContentfulEntity<
+  Omit<Post, 'category' | 'image' | 'author' | 'tags'> & {
+    /**
+     * Category sys link
+     */
+    readonly category: {
+      readonly sys: ContentfulSys;
+    };
+
+    /**
+     * Image sys link
+     */
+    readonly image: {
+      readonly sys: ContentfulSys;
+    };
+
+    /**
+     * Author sys link
+     */
+    readonly author: {
+      readonly sys: ContentfulSys;
+    };
+  }
+>;
