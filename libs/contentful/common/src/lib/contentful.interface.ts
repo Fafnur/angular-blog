@@ -145,7 +145,7 @@ export type ContentfulAsset = ContentfulEntity<{
 /**
  * Contentful collection
  */
-interface ContentfulCollection<T extends Record<string, any> = Record<string, any>> {
+export interface ContentfulCollection<T extends ContentfulEntity = ContentfulEntity> {
   /**
    * System
    */
@@ -169,7 +169,7 @@ interface ContentfulCollection<T extends Record<string, any> = Record<string, an
   /**
    * Items
    */
-  readonly items: ContentfulEntity<T>[];
+  readonly items: T[];
 
   /* eslint-disable @typescript-eslint/naming-convention */
   /**
