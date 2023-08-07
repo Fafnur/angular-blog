@@ -43,12 +43,12 @@ function getPostContent(post: Post): string {
 
 function getCategoryPostContent(category: Category, posts: Post[], index: number, total: number): string {
   return `  {
-    path: '/category/${category.slug}${index > 0 ? '/' + (index + 1) : ''}',
+    path: 'category/${category.slug}${index > 0 ? '/' + (index + 1) : ''}',
     loadComponent: () => import('@angular-blog/posts/page').then((modules) => modules.PostPageComponent),
     data: {
       posts: ${JSON.stringify(posts)},
       sitemap: {
-        loc: '/category/${category.slug}${index > 0 ? '/' + index : ''}',
+        loc: '/category/${category.slug}${index > 0 ? '/' + (index + 1) : ''}',
       },
       meta: {
         title: '${category.name} от ${new Date().toLocaleDateString()}',
@@ -68,6 +68,34 @@ function getCategoryPostContent(category: Category, posts: Post[], index: number
         page: ${index + 1},
         total: ${total},
         route: '/category/${category.slug}',
+      },
+    },
+  }`;
+}
+
+function getHomePostContent(posts: Post[], index: number, total: number): string {
+  return `  {
+    path: '${index > 0 ? 'feed/' + (index + 1) : ''}',
+    loadComponent: () => import('@angular-blog/posts/page').then((modules) => modules.PostPageComponent),
+    data: {
+      posts: ${JSON.stringify(posts)},
+      sitemap: {
+        loc: '${index > 0 ? '/feed/' + (index + 1) : '/'}',
+      },
+      meta: {
+        title: 'Новости от ${new Date().toLocaleDateString()}',
+        description: 'Последние новости на сайте',
+      },
+      breadcrumbs: [
+        {
+          label: 'Блог',
+          route: '/',
+        },
+      ],
+      pagination: {
+        page: ${index + 1},
+        total: ${total},
+        route: '/feed',
       },
     },
   }`;
@@ -103,6 +131,17 @@ function writeCategories(categories: Category[]): void {
     `import { Category } from '@angular-blog/posts/common';\n\n/* eslint-disable max-len */\nexport const categories: Category[] = ${JSON.stringify(
       categories
     )};`
+  );
+}
+
+function writeHomePosts(routes: string[]): void {
+  const file = `apps/blog/src/app/routes/blog.routes.ts`;
+
+  writeFileSync(
+    file,
+    `import { Route } from '@angular/router';\n\n/* eslint-disable max-len */\nexport const blogRoutes: Route[] = [\n${routes.join(
+      ',\n'
+    )}\n];`
   );
 }
 
@@ -144,7 +183,7 @@ function castPost(
 }
 
 function createPosts(data: ContentfulCollection<ContentfulPost>): void {
-  const posts: string[] = [];
+  let posts: string[] = [];
   const categories: Record<string, ContentfulEntity> = {};
   const authors: Record<string, ContentfulEntity> = {};
   const images: Record<string, ContentfulEntity> = {};
@@ -167,6 +206,18 @@ function createPosts(data: ContentfulCollection<ContentfulPost>): void {
   });
 
   writePosts(posts);
+
+  posts = [];
+
+  const postsEntities: Post[] = data.items.map((item) => castPost(item, categories, authors, images));
+  const limit = 4;
+  const total = postsEntities.length;
+
+  for (let index = 0; index * limit < total; index++) {
+    posts[index] = getHomePostContent(postsEntities.slice(index * limit, (index + 1) * limit), index, Math.ceil(total / limit));
+  }
+
+  writeHomePosts(posts);
 }
 
 export function createCategoryPosts(data: ContentfulCollection<ContentfulPost>): string[] {
@@ -189,13 +240,13 @@ export function createCategoryPosts(data: ContentfulCollection<ContentfulPost>):
 
   if (data.items.length > 0) {
     const postsEntities: Post[] = data.items.map((item) => castPost(item, categories, authors, images));
-    const limit = 3;
+    const limit = 4;
     const total = postsEntities.length;
 
     for (let index = 0; index * limit < total; index++) {
       posts[index] = getCategoryPostContent(
         postsEntities[0].category,
-        postsEntities.slice(index * limit, limit),
+        postsEntities.slice(index * limit, (index + 1) * limit),
         index,
         Math.ceil(total / limit)
       );
