@@ -8,6 +8,7 @@
     "prerender": "nx run blog:prerender:production && PROJECT=blog ts-node minifier.ts && PROJECT=blog ts-node ./scripts/light-mode.ts",
     "ssr": "node dist/apps/blog/server/ru/main.js",
     "extract-i18n": "nx extract-i18n blog --out-file=apps/blog/src/i18n/source.xlf",
+    "load": "ts-node --project=apps/blog/tsconfig.contentfull.json ./apps/blog/load-content.ts",
     "---- Nx ----": "",
     "ng": "nx",
     "nx": "nx",

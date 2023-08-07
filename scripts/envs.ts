@@ -19,11 +19,17 @@ function generateDynamicRoutes(project: string): void {
 }
 
 function generateBlogRoutes(project: string): void {
-  const file = `apps/${project}/src/app/routes/blog.routes.ts`;
-  const path = join(process.cwd(), file);
-  if (!existsSync(path)) {
-    writeFileSync(file, `import { Route } from '@angular/router';\n\nexport const blogRoutes: Route[] = [];`);
-  }
+  const files = [
+    `apps/${project}/src/app/routes/blog.routes.ts`,
+    `apps/${project}/src/app/routes/blog-categories.routes.ts`,
+    `apps/${project}/src/app/routes/blog-posts.routes.ts`,
+  ];
+  files.forEach((file) => {
+    const path = join(process.cwd(), file);
+    if (!existsSync(path)) {
+      writeFileSync(file, `import { Route } from '@angular/router';\n\nexport const blogRoutes: Route[] = [];`);
+    }
+  });
 }
 
 function generateCategories(): void {

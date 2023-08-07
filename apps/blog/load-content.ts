@@ -2,13 +2,10 @@ import { config } from 'dotenv';
 import * as markdown from 'markdown-it';
 import { writeFileSync } from 'node:fs';
 import { get } from 'node:http';
-import { join } from 'node:path';
-import { catchError, combineLatest, EMPTY, from, map, Observable, of, switchMap, take, tap } from 'rxjs';
+import { catchError, combineLatest, EMPTY, map, Observable, of, switchMap, take, tap } from 'rxjs';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { ContentfulCollection, ContentfulEntity } from '@angular-blog/contentful/common';
-import { ContentfulCategory, ContentfulPost } from '@angular-blog/posts/common';
+import { Category, ContentfulCategory, ContentfulPost, Post } from '@angular-blog/posts/common';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const md = markdown();
@@ -17,93 +14,208 @@ config({
   path: 'apps/blog/.env',
 });
 
-// function castPost(
-//   postDto: PostDto,
-//   categories: Record<string, Entry>,
-//   authors: Record<string, Entry>,
-//   images: Record<string, Asset>
-// ): Post {
-//   return {
-//     tags: postDto.metadata.tags,
-//     published: postDto.fields.published ?? postDto.sys.createdAt,
-//     title: postDto.fields.title,
-//     description: postDto.fields.description,
-//     category: {
-//       slug: categories[postDto.fields.category.sys.id].fields.slug,
-//       name: categories[postDto.fields.category.sys.id].fields.name,
-//     },
-//     image: images[postDto.fields.image.sys.id].fields.file.url,
-//     author: {
-//       fullName: authors[postDto.fields.author.sys.id].fields.fullName,
-//     },
-//     headline: postDto.fields.headline,
-//     intro: postDto.fields.intro,
-//     slug: postDto.fields.slug,
-//     body:
-//       postDto.fields.body?.length > 0
-//         ? md
-//             .render(postDto.fields.body)
-//             .replace(/(\r\n|\n|\r)/gm, '')
-//             .replace(/href/g, 'routerLink')
-//         : '',
-//     views: postDto.fields.views,
-//     readingTime: postDto.fields.readingTime,
-//   };
-// }
-//
-// function getPostContent(post: Post): string {
-//   return `  {
-//     path: '${post.slug}',
-//     loadComponent: () => import('@loaney/russian/posts/page').then((modules) => modules.PostPageComponent),
-//     data: {
-//       post: ${JSON.stringify(post)},
-//       sitemap: {
-//         loc: '/${post.slug}',
-//       },
-//       meta: {
-//         title: '${post.title}',
-//         description: '${post.description}',
-//       },
-//     },
-//   }`;
-// }
-//
-// function generateBlogRoutes(routes: string[]): void {
-//   const file = `apps/russian/lk/src/app/routes/blog.routes.ts`;
-//   const path = join(process.cwd(), file);
-//   writeFileSync(
-//     file,
-//     `import { Route } from '@angular/router';\n\n/* eslint-disable max-len */\nexport const blogRoutes: Route[] = [\n${routes.join(
-//       ',\n'
-//     )}\n];`
-//   );
-// }
-//
-// function createPosts(data: PostsResponse): void {
-//   const posts: string[] = [];
-//   const categories: Record<string, Entry> = {};
-//   const authors: Record<string, Entry> = {};
-//   const images: Record<string, Asset> = {};
-//
-//   data.includes.Entry.forEach((entry) => {
-//     if (entry.sys.contentType.sys.id === 'category') {
-//       categories[entry.sys.id] = entry;
-//     } else if (entry.sys.contentType.sys.id === 'author') {
-//       authors[entry.sys.id] = entry;
-//     }
-//   });
-//
-//   data.includes.Asset.forEach((asset) => {
-//     images[asset.sys.id] = asset;
-//   });
-//
-//   data.items.forEach((postDto, index) => {
-//     const post = castPost(postDto, categories, authors, images);
-//     posts[index] = getPostContent(post);
-//   });
-//
-//   generateBlogRoutes(posts);
-// }
+function getPostContent(post: Post): string {
+  return `  {
+    path: '${post.slug}',
+    loadComponent: () => import('@angular-blog/posts/view/page').then((modules) => modules.PostViewPageComponent),
+    data: {
+      post: ${JSON.stringify(post)},
+      sitemap: {
+        loc: '/${post.slug}',
+      },
+      meta: {
+        title: '${post.title}',
+        description: '${post.description}',
+      },
+      breadcrumbs: [
+        {
+          label: 'Блог',
+          route: '/',
+        },
+        {
+          label: '${post.category.name}',
+          route: '/category/${post.category.slug}',
+        },
+      ],
+    },
+  }`;
+}
+
+function getCategoryPostContent(category: Category, posts: Post[], index: number, total: number): string {
+  return `  {
+    path: '/category/${category.slug}${index > 0 ? '/' + (index + 1) : ''}',
+    loadComponent: () => import('@angular-blog/posts/page').then((modules) => modules.PostPageComponent),
+    data: {
+      posts: ${JSON.stringify(posts)},
+      sitemap: {
+        loc: '/category/${category.slug}${index > 0 ? '/' + index : ''}',
+      },
+      meta: {
+        title: '${category.name} от ${new Date().toLocaleDateString()}',
+        description: 'Последние новости в категории: ${category.name}',
+      },
+      breadcrumbs: [
+        {
+          label: 'Блог',
+          route: '/',
+        },
+        {
+          label: '${category.name}',
+          route: '/category/${category.slug}',
+        },
+      ],
+      pagination: {
+        page: ${index + 1},
+        total: ${total},
+        route: '/category/${category.slug}',
+      },
+    },
+  }`;
+}
+
+function writePosts(routes: string[]): void {
+  const file = `apps/blog/src/app/routes/blog-posts.routes.ts`;
+
+  writeFileSync(
+    file,
+    `import { Route } from '@angular/router';\n\n/* eslint-disable max-len */\nexport const blogRoutes: Route[] = [\n${routes.join(
+      ',\n'
+    )}\n];`
+  );
+}
+function writeCategoryPosts(routes: string[]): void {
+  const file = `apps/blog/src/app/routes/blog-categories.routes.ts`;
+
+  writeFileSync(
+    file,
+    `import { Route } from '@angular/router';\n\n/* eslint-disable max-len */\nexport const blogRoutes: Route[] = [\n${routes.join(
+      ',\n'
+    )}\n];`
+  );
+}
+
+function writeCategories(categories: Category[]): void {
+  const file = `libs/ui/categories/src/lib/categories.ts`;
+
+  writeFileSync(
+    file,
+    // eslint-disable-next-line max-len
+    `import { Category } from '@angular-blog/posts/common';\n\n/* eslint-disable max-len */\nexport const categories: Category[] = ${JSON.stringify(
+      categories
+    )};`
+  );
+}
+
+function castPost(
+  postDto: ContentfulPost,
+  categories: Record<string, ContentfulEntity>,
+  authors: Record<string, ContentfulEntity>,
+  images: Record<string, ContentfulEntity>
+): Post {
+  return {
+    tags: postDto.metadata.tags,
+    published: postDto.fields.published ?? postDto.sys.createdAt,
+    title: postDto.fields.title,
+    description: postDto.fields.description,
+    category: {
+      slug: categories[postDto.fields.category.sys.id].fields.slug,
+      name: categories[postDto.fields.category.sys.id].fields.name,
+    },
+    image: images[postDto.fields.image.sys.id].fields.file.url,
+    author: {
+      fullName: authors[postDto.fields.author.sys.id].fields.fullName,
+      email: authors[postDto.fields.author.sys.id].fields.email,
+      avatar: authors[postDto.fields.author.sys.id].fields.avatar,
+      bio: authors[postDto.fields.author.sys.id].fields.bio,
+    },
+    headline: postDto.fields.headline,
+    intro: postDto.fields.intro,
+    slug: postDto.fields.slug,
+    body:
+      postDto.fields.body?.length > 0
+        ? md
+            .render(postDto.fields.body)
+            .replace(/(\r\n|\n|\r)/gm, '')
+            .replace(/href/g, 'routerLink')
+        : '',
+    views: postDto.fields.views,
+    readingTime: postDto.fields.readingTime,
+  };
+}
+
+function createPosts(data: ContentfulCollection<ContentfulPost>): void {
+  const posts: string[] = [];
+  const categories: Record<string, ContentfulEntity> = {};
+  const authors: Record<string, ContentfulEntity> = {};
+  const images: Record<string, ContentfulEntity> = {};
+
+  data.includes.Entry.forEach((entry) => {
+    if (entry.sys.contentType.sys.id === 'category') {
+      categories[entry.sys.id] = entry;
+    } else if (entry.sys.contentType.sys.id === 'author') {
+      authors[entry.sys.id] = entry;
+    }
+  });
+
+  data.includes.Asset.forEach((asset) => {
+    images[asset.sys.id] = asset;
+  });
+
+  data.items.forEach((postDto, index) => {
+    const post = castPost(postDto, categories, authors, images);
+    posts[index] = getPostContent(post);
+  });
+
+  writePosts(posts);
+}
+
+export function createCategoryPosts(data: ContentfulCollection<ContentfulPost>): string[] {
+  const posts: string[] = [];
+  const categories: Record<string, ContentfulEntity> = {};
+  const authors: Record<string, ContentfulEntity> = {};
+  const images: Record<string, ContentfulEntity> = {};
+
+  data.includes.Entry.forEach((entry) => {
+    if (entry.sys.contentType.sys.id === 'category') {
+      categories[entry.sys.id] = entry;
+    } else if (entry.sys.contentType.sys.id === 'author') {
+      authors[entry.sys.id] = entry;
+    }
+  });
+
+  data.includes.Asset.forEach((asset) => {
+    images[asset.sys.id] = asset;
+  });
+
+  if (data.items.length > 0) {
+    const postsEntities: Post[] = data.items.map((item) => castPost(item, categories, authors, images));
+    const limit = 3;
+    const total = postsEntities.length;
+
+    for (let index = 0; index * limit < total; index++) {
+      posts[index] = getCategoryPostContent(
+        postsEntities[0].category,
+        postsEntities.slice(index * limit, limit),
+        index,
+        Math.ceil(total / limit)
+      );
+    }
+  }
+
+  return posts;
+}
+
+export function createCategoriesPosts(data: ContentfulCollection<ContentfulPost>[]): void {
+  const posts: string[] = [];
+
+  data.forEach((item) => {
+    if (item.items.length > 0) {
+      posts.push(...createCategoryPosts(item));
+    }
+  });
+
+  writeCategoryPosts(posts);
+}
 
 interface RequestParams {
   contentType: string;
@@ -216,9 +328,7 @@ function run(): void {
   load<ContentfulPost>({ contentType: 'post' })
     .pipe(
       tap((result) => {
-        console.log(result.items.length);
-        console.log(result.includes.Asset.length);
-        console.log(result.includes.Asset.length);
+        createPosts(result);
       })
     )
     .subscribe();
@@ -226,8 +336,10 @@ function run(): void {
   // Load all categories
   load<ContentfulCategory>({ contentType: 'category' })
     .pipe(
-      tap((response) => {
-        // TODO: Generate category
+      tap((response: ContentfulCollection<ContentfulCategory>) => {
+        const categories: Category[] = response.items.map((item) => ({ name: item.fields.name, slug: item.fields.slug }));
+
+        writeCategories(categories);
       }),
       switchMap((response) => {
         if (!response.items.length) {
@@ -244,8 +356,8 @@ function run(): void {
           )
         ).pipe(
           take(1),
-          tap((result) => {
-            // TODO: Add blog category pages
+          tap((result: ContentfulCollection<ContentfulPost>[]) => {
+            createCategoriesPosts(result);
           })
         );
       })

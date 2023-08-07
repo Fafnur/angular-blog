@@ -24,14 +24,15 @@ export class PostPaginationComponent implements OnInit {
     while (route.firstChild) {
       route = route.firstChild;
     }
+    const pagination:
+      | {
+          readonly page: number;
+          readonly total: number;
+          readonly route: string;
+        }
+      | undefined = route.data['pagination'];
 
-    if (route.data['pagination']) {
-      const pagination: {
-        readonly page: number;
-        readonly total: number;
-        readonly route: string;
-      } = route.data['pagination'];
-
+    if (pagination && pagination.total !== 1) {
       this.links = Array.from({ length: pagination.total }, (v: unknown, k: number) => {
         return {
           label: `${k + 1}`,
