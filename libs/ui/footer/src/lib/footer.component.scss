@@ -2,8 +2,12 @@
 
 :host {
   display: block;
-  color: var(--mat-toolbar-container-text-color);
-  background-color: var(--mat-toolbar-container-background-color);
+  //color: var(--mat-toolbar-container-text-color);
+  //background-color: var(--mat-toolbar-container-background-color);
+
+  color: var(--mat-sidenav-container-text-color);
+  background-color: var(--mat-sidenav-container-background-color);
+
   padding: 1rem 0;
   gap: 8px;
 }

@@ -24,6 +24,7 @@
       "@angular-blog/posts/ui/categories": ["libs/posts/ui/categories/src/index.ts"],
       "@angular-blog/posts/ui/layout": ["libs/posts/ui/layout/src/index.ts"],
       "@angular-blog/posts/ui/list": ["libs/posts/ui/list/src/index.ts"],
+      "@angular-blog/posts/ui/pagination": ["libs/posts/ui/pagination/src/index.ts"],
       "@angular-blog/posts/view/page": ["libs/posts/view/page/src/index.ts"],
       "@angular-blog/ui/breadcrumbs": ["libs/ui/breadcrumbs/src/index.ts"],
       "@angular-blog/ui/categories": ["libs/ui/categories/src/index.ts"],

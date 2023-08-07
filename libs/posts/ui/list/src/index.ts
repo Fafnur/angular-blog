@@ -1,1 +1,1 @@
-export * from './lib/posts-ui-list.module';
+export * from './lib/post-list.component';

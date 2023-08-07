@@ -1,10 +1,12 @@
 :host {
   display: block;
-  background-color: var(--mat-toolbar-container-background-color);
-  color: var(--mat-toolbar-container-text-color);
+  color: var(--mat-sidenav-container-text-color);
+  background-color: var(--mat-sidenav-container-background-color);
 }
 
 mat-toolbar {
+  color: var(--mat-sidenav-container-text-color);
+  background-color: var(--mat-sidenav-container-background-color);
   padding: 0;
 
   > span {

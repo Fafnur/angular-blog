@@ -42,9 +42,7 @@ export class BreadcrumbsComponent implements OnInit {
       route = route.firstChild;
     }
 
-    if (route.data['breadcrumbs']) {
-      this.breadcrumbs = route.data['breadcrumbs'];
-      this.changeDetectorRef.markForCheck();
-    }
+    this.breadcrumbs = route.data['breadcrumbs'] ?? [];
+    this.changeDetectorRef.markForCheck();
   }
 }

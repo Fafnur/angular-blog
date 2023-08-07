@@ -1,1 +1,1 @@
-export * from './lib/posts-ui-card.module';
+export * from './lib/post-card.component';
