@@ -1,0 +1,23 @@
+:host {
+  margin: 0.5rem 0;
+  color: var(--mat-toolbar-container-text-color);
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+li:not(:last-child)::after {
+  margin: 0 0.25rem;
+  content: '/';
+}
+
+a {
+  font-size: 0.85rem;
+  color: var(--mat-toolbar-container-text-color);
+}

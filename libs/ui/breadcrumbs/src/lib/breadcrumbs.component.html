@@ -1,3 +1,5 @@
-<angular-blog-container>
-  <p>breadcrumbs works!</p>
-</angular-blog-container>
+<ul *ngIf="breadcrumbs.length > 0">
+  <li *ngFor="let breadcrumb of breadcrumbs">
+    <a [routerLink]="breadcrumb.route">{{ breadcrumb.label }}</a>
+  </li>
+</ul>

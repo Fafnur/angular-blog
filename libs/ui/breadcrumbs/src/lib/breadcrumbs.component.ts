@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
-import { ContainerComponent } from '@angular-blog/ui/container';
+import { NavigationLink } from '@angular-blog/core';
 
 @Component({
   selector: 'angular-blog-breadcrumbs',
@@ -10,20 +12,39 @@ import { ContainerComponent } from '@angular-blog/ui/container';
   styleUrls: ['./breadcrumbs.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, ContainerComponent],
+  imports: [RouterLink, RouterLinkActive, NgIf, NgFor],
 })
-export class BreadcrumbsComponent {
-  constructor(private readonly router: Router, private readonly activatedRoute: ActivatedRoute) {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      let route = this.activatedRoute.snapshot;
+export class BreadcrumbsComponent implements OnInit {
+  breadcrumbs: NavigationLink[] = [];
 
-      while (route.firstChild) {
-        route = route.firstChild;
-      }
-
-      this.update(route.data['breadcrumbs']);
-    });
+  constructor(
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly changeDetectorRef: ChangeDetectorRef
+  ) {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        tap(() => this.update()),
+        takeUntilDestroyed()
+      )
+      .subscribe();
   }
 
-  private update(data: any): void {}
+  ngOnInit(): void {
+    this.update();
+  }
+
+  private update(): void {
+    let route = this.activatedRoute.snapshot;
+
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+
+    if (route.data['breadcrumbs']) {
+      this.breadcrumbs = route.data['breadcrumbs'];
+      this.changeDetectorRef.markForCheck();
+    }
+  }
 }

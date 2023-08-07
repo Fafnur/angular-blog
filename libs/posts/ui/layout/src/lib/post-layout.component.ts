@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
 
 import { PostCategoriesComponent } from '@angular-blog/posts/ui/categories';
+import { BreadcrumbsComponent } from '@angular-blog/ui/breadcrumbs';
 import { ContainerComponent } from '@angular-blog/ui/container';
 import { ColumnComponent, RowComponent, TabletDirective, WebDirective } from '@angular-blog/ui/grid';
 import { TitleComponent } from '@angular-blog/ui/title';
@@ -23,6 +24,7 @@ import { TitleComponent } from '@angular-blog/ui/title';
     TitleComponent,
     PostCategoriesComponent,
     RouterOutlet,
+    BreadcrumbsComponent,
   ],
 })
 export class PostLayoutComponent {}
