@@ -1,12 +1,10 @@
 <mat-card>
-  <a [routerLink]="['/', post.slug]">
-    <img mat-card-image [src]="post.image" [attr.alt]="post.title" />
-  </a>
+  <a [routerLink]="['/', post.slug]" [ngStyle]="post.image | backgroundImage"> </a>
   <mat-card-header>
     <mat-card-title>{{ post.headline }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    {{ post.intro }}
+    <div>{{ post.intro }}</div>
   </mat-card-content>
   <mat-card-actions>
     <a mat-button [routerLink]="['/', post.slug]">Read more</a>
