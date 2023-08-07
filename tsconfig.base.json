@@ -17,7 +17,6 @@
     "paths": {
       "@angular-blog/contentful/common": ["libs/contentful/common/src/index.ts"],
       "@angular-blog/core": ["libs/core/src/index.ts"],
-      "@angular-blog/posts/category/page": ["libs/posts/category/page/src/index.ts"],
       "@angular-blog/posts/common": ["libs/posts/common/src/index.ts"],
       "@angular-blog/posts/page": ["libs/posts/page/src/index.ts"],
       "@angular-blog/posts/ui/card": ["libs/posts/ui/card/src/index.ts"],

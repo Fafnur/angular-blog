@@ -1,5 +1,7 @@
 <mat-card>
-  <img mat-card-image [src]="post.image" [attr.alt]="post.title" />
+  <a [routerLink]="['/', post.slug]">
+    <img mat-card-image [src]="post.image" [attr.alt]="post.title" />
+  </a>
   <mat-card-header>
     <mat-card-title>{{ post.headline }}</mat-card-title>
   </mat-card-header>

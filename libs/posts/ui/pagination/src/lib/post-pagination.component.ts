@@ -35,7 +35,7 @@ export class PostPaginationComponent implements OnInit {
       this.links = Array.from({ length: pagination.total }, (v: unknown, k: number) => {
         return {
           label: `${k + 1}`,
-          route: pagination.route === '/feed' && k === 0 ? '/' : `${pagination.route}/${k + 1}`,
+          route: pagination.route === '/feed' && k === 0 ? '/' : k === 0 ? pagination.route : `${pagination.route}/${k + 1}`,
         };
       });
     }
