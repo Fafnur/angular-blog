@@ -1,6 +1,8 @@
 @use 'libs/ui/grid/mixins' as grid;
 
 :host {
+  margin-left: -0.75rem;
+
   @include grid.media-tablet-up() {
     display: none;
   }
