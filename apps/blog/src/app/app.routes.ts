@@ -30,6 +30,10 @@ export const appRoutes: Route[] = [
           },
         ],
       },
+      {
+        path: '**',
+        loadComponent: () => import('@angular-blog/errors/not-found/page').then((modules) => modules.NotFoundPageComponent),
+      },
     ],
   },
 ];
