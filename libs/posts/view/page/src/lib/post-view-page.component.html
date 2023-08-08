@@ -1,6 +1,6 @@
 <h1>{{ post.headline }}</h1>
 <p>{{ post.published | date : 'shortDate' }}, {{ post.author.fullName }}</p>
 <div>
-  <img [src]="post.image" [attr.alt]="post.title" />
+  <img [src]="post.image" alt="" />
 </div>
-<div [innerHTML]="post.body"></div>
+<div [innerHTML]="post.body | safeHtml"></div>
