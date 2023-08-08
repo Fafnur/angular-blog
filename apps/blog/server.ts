@@ -1,6 +1,6 @@
 import 'zone.js/node';
 
-import { APP_BASE_HREF } from '@angular/common';
+// import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
@@ -39,7 +39,11 @@ export function app(): express.Express {
       const { themePreference } = req.cookies;
       res.sendFile(themePreference === 'light' ? prerender.replace('browser/ru', 'browser/ru/light') : prerender);
     } else {
-      res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+      // Disable SSR, because we use prerender for all pages
+      // res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+
+      res.statusCode = 404;
+      res.sendFile(join(distFolder, '/not-found', 'index.html'));
     }
   });
 
