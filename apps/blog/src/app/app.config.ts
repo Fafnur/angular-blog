@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
 import { provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling } from '@angular/router';
 
-import { MetaService } from '@angular-blog/core';
+import { MetaService, MetricService } from '@angular-blog/core';
 
 import { appRoutes } from './app.routes';
 
@@ -17,13 +17,14 @@ export const appConfig: ApplicationConfig = {
     ),
     {
       provide: APP_INITIALIZER,
-      useFactory: (metaService: MetaService) => {
+      useFactory: (metaService: MetaService, metricService: MetricService) => {
         return () => {
-          metaService.update();
+          metaService.init();
+          metricService.init();
         };
       },
       multi: true,
-      deps: [MetaService],
+      deps: [MetaService, MetricService],
     },
   ],
 };

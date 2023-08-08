@@ -100,6 +100,6 @@ export function generateSitemap(app: string, appHost?: string, excludes: string[
     // eslint-disable-next-line max-len
     `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`
   );
-  const routePaths = [...Array.from(routes), '/not-found', '/server-error'].sort().join('\n');
+  const routePaths = [...Array.from(routes), '/not-found'].sort().join('\n');
   fs.writeFileSync(`apps/${app}/dynamic-routes.txt`, routePaths);
 }

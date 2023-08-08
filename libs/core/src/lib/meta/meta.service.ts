@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, InjectionToken, LOCALE_ID, Optional } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
 /**
  * Config meta tags.
@@ -163,18 +163,29 @@ export class MetaService {
     this.metaConfig = { ...META_CONFIG_DEFAULT, ...metaConfig };
     this.metaConfigOg = { ...META_CONFIG_OG_DEFAULT, ...metaConfigOg };
 
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      let route = this.activatedRoute.snapshot;
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        tap(() => this.update(this.getCurrent()))
+      )
+      .subscribe();
+  }
 
-      while (route.firstChild) {
-        route = route.firstChild;
-      }
+  getCurrent() {
+    let route = this.activatedRoute.snapshot;
 
-      this.update({
-        url: this.router.url,
-        ...route.data['meta'],
-      });
-    });
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+
+    return {
+      url: this.router.url,
+      ...route.data['meta'],
+    };
+  }
+
+  init(): void {
+    /* empty */
   }
 
   /**
