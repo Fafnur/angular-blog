@@ -1,6 +1,6 @@
 import { DefinePlugin } from 'webpack';
 
-function getClientEnvironment() {
+export function getClientEnvironment() {
   const NX_APP = /^NX_/i;
 
   const raw = Object.keys(process.env)

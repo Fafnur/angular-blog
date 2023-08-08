@@ -1,0 +1,45 @@
+@use 'libs/ui/grid/mixins' as grid;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  &[fluid] {
+    max-width: 100%;
+  }
+
+  @include grid.media-handset() {
+    &[mobile-no-gutter] {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @include grid.media-tablet-portrait() {
+    &:not([fluid]) {
+      max-width: 788px;
+    }
+  }
+
+  @include grid.media-tablet-landscape() {
+    &:not([fluid]) {
+      max-width: 928px;
+    }
+  }
+
+  @include grid.media-web-portrait() {
+    &:not([fluid]) {
+      max-width: 808px;
+    }
+  }
+
+  @include grid.media-web-landscape() {
+    &:not([fluid]) {
+      max-width: 1200px;
+    }
+  }
+}

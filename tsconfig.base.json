@@ -14,7 +14,29 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@angular-blog/about/page": ["libs/about/page/src/index.ts"],
+      "@angular-blog/contentful/common": ["libs/contentful/common/src/index.ts"],
+      "@angular-blog/contentful/utils": ["libs/contentful/utils/src/index.ts"],
+      "@angular-blog/core": ["libs/core/src/index.ts"],
+      "@angular-blog/errors/not-found/page": ["libs/errors/not-found/page/src/index.ts"],
+      "@angular-blog/posts/common": ["libs/posts/common/src/index.ts"],
+      "@angular-blog/posts/page": ["libs/posts/page/src/index.ts"],
+      "@angular-blog/posts/ui/card": ["libs/posts/ui/card/src/index.ts"],
+      "@angular-blog/posts/ui/categories": ["libs/posts/ui/categories/src/index.ts"],
+      "@angular-blog/posts/ui/layout": ["libs/posts/ui/layout/src/index.ts"],
+      "@angular-blog/posts/ui/list": ["libs/posts/ui/list/src/index.ts"],
+      "@angular-blog/posts/ui/pagination": ["libs/posts/ui/pagination/src/index.ts"],
+      "@angular-blog/posts/view/page": ["libs/posts/view/page/src/index.ts"],
+      "@angular-blog/ui/breadcrumbs": ["libs/ui/breadcrumbs/src/index.ts"],
+      "@angular-blog/ui/categories": ["libs/ui/categories/src/index.ts"],
+      "@angular-blog/ui/container": ["libs/ui/container/src/index.ts"],
+      "@angular-blog/ui/footer": ["libs/ui/footer/src/index.ts"],
+      "@angular-blog/ui/grid": ["libs/ui/grid/src/index.ts"],
+      "@angular-blog/ui/header": ["libs/ui/header/src/index.ts"],
+      "@angular-blog/ui/layout": ["libs/ui/layout/src/index.ts"],
+      "@angular-blog/ui/title": ["libs/ui/title/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

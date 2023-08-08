@@ -1,0 +1,25 @@
+@use 'libs/ui/grid/mixins' as grid;
+
+:host {
+  display: block;
+  //color: var(--mat-toolbar-container-text-color);
+  //background-color: var(--mat-toolbar-container-background-color);
+
+  color: var(--mat-sidenav-container-text-color);
+  background-color: var(--mat-sidenav-container-background-color);
+
+  padding: 1rem 0;
+  gap: 8px;
+}
+
+angular-blog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @include grid.media-tablet-up() {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

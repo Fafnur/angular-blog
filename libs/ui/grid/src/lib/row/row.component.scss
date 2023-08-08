@@ -1,0 +1,24 @@
+@use 'sass:math' as math;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+
+  & ::ng-deep > * {
+    padding: 0 0.5rem;
+  }
+
+  &[no-gutter] {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &[no-gutter] {
+    ::ng-deep > * {
+      padding: 0;
+    }
+  }
+}

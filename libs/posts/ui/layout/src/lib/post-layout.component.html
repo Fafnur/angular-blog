@@ -1,0 +1,12 @@
+<angular-blog-container>
+  <angular-blog-breadcrumbs></angular-blog-breadcrumbs>
+  <angular-blog-row>
+    <angular-blog-column tablet="8" web="9">
+      <router-outlet></router-outlet>
+    </angular-blog-column>
+    <angular-blog-column tablet="4" web="3" class="no-mobile">
+      <angular-blog-title i18n="Post Layout|Categories">Categories</angular-blog-title>
+      <angular-blog-post-categories></angular-blog-post-categories>
+    </angular-blog-column>
+  </angular-blog-row>
+</angular-blog-container>

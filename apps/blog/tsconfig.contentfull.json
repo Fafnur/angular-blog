@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "files": ["./src/load-content.ts"],
+  "include": [],
+  "compilerOptions": {
+    "module": "CommonJS",
+    "lib": ["DOM", "ESNext"],
+    "types": ["node"]
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

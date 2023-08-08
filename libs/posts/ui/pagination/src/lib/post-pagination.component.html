@@ -1,0 +1,3 @@
+<ng-container *ngIf="links">
+  <a mat-raised-button [routerLink]="link.route" *ngFor="let link of links">{{ link.label }}</a>
+</ng-container>

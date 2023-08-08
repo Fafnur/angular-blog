@@ -1,0 +1,23 @@
+@use 'variables' as variables;
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 16px;
+  color: variables.$color-default;
+  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, Lucida Grande, sans-serif;
+}
+
+body {
+  background-color: var(--mat-toolbar-container-background-color);
+  color: var(--mat-toolbar-container-text-color);
+}
+
+a {
+}

@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  color: var(--mat-sidenav-container-text-color);
+  background-color: var(--mat-sidenav-container-background-color);
+}
+
+mat-toolbar {
+  color: var(--mat-sidenav-container-text-color);
+  background-color: var(--mat-sidenav-container-background-color);
+  padding: 0;
+
+  > span {
+    flex: 1 1 auto;
+  }
+}

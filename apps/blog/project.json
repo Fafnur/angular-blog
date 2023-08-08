@@ -27,7 +27,14 @@
         "main": "apps/blog/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/blog/tsconfig.app.json",
-        "assets": ["apps/blog/src/favicon.ico", "apps/blog/src/assets"],
+        "assets": [
+          "apps/blog/src/favicon.ico",
+          "apps/blog/src/sitemap.xml",
+          "apps/blog/src/site.webmanifest",
+          "apps/blog/src/browserconfig.xml",
+          "apps/blog/src/robots.txt",
+          "apps/blog/src/assets"
+        ],
         "styles": ["apps/blog/src/styles.scss"],
         "allowedCommonJsDependencies": ["hammerjs"],
         "scripts": [],
@@ -35,6 +42,10 @@
       },
       "configurations": {
         "production": {
+          "index": {
+            "input": "apps/blog/src/index.prod.html",
+            "output": "index.html"
+          },
           "budgets": [
             {
               "type": "initial",
@@ -44,7 +55,7 @@
             {
               "type": "anyComponentStyle",
               "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumError": "10kb"
             }
           ],
           "outputHashing": "all"
@@ -139,6 +150,7 @@
       "executor": "@nguniversal/builders:prerender",
       "options": {
         "routes": ["/"],
+        "routesFile": "apps/blog/dynamic-routes.txt",
         "guessRoutes": false
       },
       "configurations": {

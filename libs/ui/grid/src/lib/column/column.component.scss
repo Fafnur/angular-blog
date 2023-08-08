@@ -1,0 +1,45 @@
+@use 'libs/ui/grid/mixins' as grid;
+@use 'sass:math';
+
+@mixin make-columns($mode, $modeWithPrefix) {
+  &[#{$mode}],
+  &[#{$modeWithPrefix}] {
+    flex: 1 0 0;
+  }
+
+  &[#{$mode}]:not([#{$mode}='']),
+  &[#{$modeWithPrefix}]:not([#{$modeWithPrefix}='']) {
+    flex: 0 0 auto;
+  }
+
+  @for $column from 1 through 12 {
+    &[#{$mode}='#{$column}'],
+    &[#{$modeWithPrefix}='#{$column}'] {
+      width: math.percentage(math.div($column, 12));
+    }
+
+    &[#{$mode}-offset='#{$column}'],
+    &[#{$modeWithPrefix}Offset='#{$column}'] {
+      margin-left: math.percentage(math.div($column, 12));
+    }
+  }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+
+  @include grid.media-handset-up() {
+    @include make-columns(handset, fafnHandset);
+  }
+
+  @include grid.media-tablet-up() {
+    @include make-columns(tablet, fafnTablet);
+  }
+
+  @include grid.media-web-up() {
+    @include make-columns(web, fafnWeb);
+  }
+}
