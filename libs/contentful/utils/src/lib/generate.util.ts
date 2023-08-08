@@ -7,7 +7,7 @@ import { createRoutes } from './create.util';
 import { load } from './load.util';
 import { getHomeRoute, getPostCategoryRoute, getPostViewRoure } from './route.util';
 import { generateSitemap } from './sitemap.util';
-import { writeCategories, writeRoutes } from './write.util';
+import { writeCategories, writeRoutesSeparate } from './write.util';
 
 export function generate(payload: { readonly categoryPath: string; readonly postsPath: string; readonly pageLimit?: number }): void {
   const categories: Record<string, Record<string, string>> = {};
@@ -71,7 +71,7 @@ export function generate(payload: { readonly categoryPath: string; readonly post
           .reduce((acc: string[], current: string[]) => acc.concat(current), [] as string[]);
 
         // Write posts
-        writeRoutes(payload.postsPath, routes);
+        writeRoutesSeparate(payload.postsPath, routes);
 
         // Write categories for menu
         writeCategories(payload.categoryPath, categoriesWithPosts);

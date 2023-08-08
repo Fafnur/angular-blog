@@ -18,3 +18,18 @@ export function writeCategories(fileName: string, categories: Record<string, any
     )};`
   );
 }
+
+export function writeRoutesSeparate(fileName: string, routes: string[]): void {
+  const separateRoutes: string[] = [];
+
+  routes.forEach((route, index) => {
+    writeRoutes(`apps/blog/src/app/routes/blog-${index}.routes.ts`, [route]);
+
+    separateRoutes.push(`  {
+    path: '',
+    loadChildren: () => import('./blog-${index}.routes').then((modules) => modules.blogRoutes),
+  }`);
+  });
+
+  writeRoutes(fileName, separateRoutes);
+}

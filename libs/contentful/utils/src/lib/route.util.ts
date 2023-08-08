@@ -92,3 +92,10 @@ export function getHomeRoute(posts: Post[], index: number, total: number): strin
     },
   }`;
 }
+
+export function getRouteSeparate(hash: string): string {
+  return `  {
+    path: '',
+  loadChildren: () => import('./routes/blog-${hash}.routes').then((modules) => modules.blogRoutes),
+  }`;
+}

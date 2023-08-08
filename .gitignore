@@ -55,6 +55,5 @@ junit.xml
 .yarnrc
 yarn.lock
 /apps/**/routes/blog.routes.ts
-/apps/**/routes/blog-categories.routes.ts
-/apps/**/routes/blog-posts.routes.ts
+/apps/**/routes/*.routes.ts
 libs/ui/categories/src/lib/categories.ts
