@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@angular-blog/contentful/common": ["libs/contentful/common/src/index.ts"],
+      "@angular-blog/contentful/utils": ["libs/contentful/utils/src/index.ts"],
       "@angular-blog/core": ["libs/core/src/index.ts"],
       "@angular-blog/posts/common": ["libs/posts/common/src/index.ts"],
       "@angular-blog/posts/page": ["libs/posts/page/src/index.ts"],

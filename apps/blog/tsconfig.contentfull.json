@@ -1,6 +1,6 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "files": ["./load-content.ts"],
+  "extends": "./tsconfig.json",
+  "files": ["./src/load-content.ts"],
   "include": [],
   "compilerOptions": {
     "module": "CommonJS",

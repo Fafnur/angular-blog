@@ -175,7 +175,7 @@ export interface ContentfulCollection<T extends ContentfulEntity = ContentfulEnt
   /**
    * Includes entities
    */
-  readonly includes: {
+  readonly includes?: {
     /**
      * Entities
      */

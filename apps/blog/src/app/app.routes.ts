@@ -33,14 +33,6 @@ export const appRoutes: Route[] = [
             path: '',
             loadChildren: () => import('./routes/blog.routes').then((modules) => modules.blogRoutes),
           },
-          {
-            path: '',
-            loadChildren: () => import('./routes/blog-categories.routes').then((modules) => modules.blogRoutes),
-          },
-          {
-            path: '',
-            loadChildren: () => import('./routes/blog-posts.routes').then((modules) => modules.blogRoutes),
-          },
         ],
       },
     ],
