@@ -100,6 +100,7 @@ export const META_CONFIG_OG = new InjectionToken<Partial<MetaConfigOg>>('MetaCon
 export const META_CONFIG_DEFAULT: MetaConfig = {
   title: 'Angular Blog',
   description: 'Angular Blog',
+  hostname: 'https://angular-blog.fafn.ru',
 };
 
 /**
@@ -107,12 +108,12 @@ export const META_CONFIG_DEFAULT: MetaConfig = {
  * @publicApi
  */
 export const META_CONFIG_OG_DEFAULT: MetaConfigOg = {
-  siteName: 'angular-blog',
+  siteName: 'Angular Blog',
   type: 'website',
   image: '/assets/images/site.jpg',
   imageType: 'image/jpeg',
-  imageWidth: '1200',
-  imageHeight: '600',
+  imageWidth: '800',
+  imageHeight: '427',
 };
 
 /**

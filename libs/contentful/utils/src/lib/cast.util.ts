@@ -21,6 +21,7 @@ export function castPost(
       name: categories[postDto.fields.category.sys.id].fields.name,
     },
     image: images[postDto.fields.image.sys.id].fields.file.url,
+    imageOriginal: images[postDto.fields.image.sys.id],
     author: {
       fullName: authors[postDto.fields.author.sys.id].fields.fullName,
       email: authors[postDto.fields.author.sys.id].fields.email,

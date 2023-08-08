@@ -12,6 +12,10 @@ export function getPostViewRoure(post: Post): string {
       meta: {
         title: '${post.title}',
         description: '${post.description}',
+        image: '${post.image}',
+        imageType: '${post.imageOriginal.fields.file.contentType}',
+        imageWidth: '${post.imageOriginal.fields.file.details.image?.width ?? 800}',
+        imageHeight: '${post.imageOriginal.fields.file.details.image?.height ?? 450}',
       },
       breadcrumbs: [
         {

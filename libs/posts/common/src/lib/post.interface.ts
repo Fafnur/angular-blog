@@ -1,4 +1,4 @@
-import { ContentfulEntity, ContentfulSys } from '@angular-blog/contentful/common';
+import { ContentfulAsset, ContentfulEntity, ContentfulSys } from '@angular-blog/contentful/common';
 
 /**
  * Category entity
@@ -92,6 +92,11 @@ export interface Post {
    * Path to image
    */
   readonly image: string;
+
+  /**
+   * Original asset for generate OG
+   */
+  readonly imageOriginal: ContentfulAsset;
 
   /**
    * Author
