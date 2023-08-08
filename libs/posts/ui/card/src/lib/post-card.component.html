@@ -1,5 +1,6 @@
 <mat-card>
-  <a [routerLink]="['/', post.slug]" [ngStyle]="post.image | backgroundImage"> </a>
+  <a [routerLink]="['/', post.slug]" [ngStyle]="post.image | backgroundImage" i18n-aria-label="Post Card|Image" aria-label="Open full post">
+  </a>
   <mat-card-header>
     <mat-card-title>{{ post.headline }}</mat-card-title>
   </mat-card-header>

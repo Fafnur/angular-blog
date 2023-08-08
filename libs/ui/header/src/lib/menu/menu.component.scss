@@ -16,15 +16,20 @@ mat-sidenav-container {
 mat-sidenav {
   width: 100%;
   left: 0;
+  background-color: var(--mat-toolbar-container-background-color);
+  color: var(--mat-toolbar-container-text-color);
 }
 
 header {
   display: flex;
-  justify-content: right;
   align-items: center;
   height: var(--mat-toolbar-mobile-height);
-  background-color: var(--mat-toolbar-container-background-color);
-  color: var(--mat-toolbar-container-text-color);
+  background-color: var(--mat-sidenav-container-background-color);
+  color: var(--mat-sidenav-container-text-color);
+
+  button {
+    margin: 0 0 0 auto;
+  }
 }
 
 nav {

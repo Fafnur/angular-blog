@@ -1,7 +1,7 @@
 <mat-sidenav-container (click)="sidenav.toggle()">
   <mat-sidenav #sidenav class="sidenav" mode="side" position="start" [fixedInViewport]="true" [fixedTopGap]="0" [fixedBottomGap]="0">
     <header>
-      <button mat-icon-button class="menu-button">
+      <button mat-icon-button i18n-aria-label="Header Menu|Close menu" aria-label="Close main menu">
         <mat-icon>close</mat-icon>
       </button>
     </header>
@@ -10,6 +10,6 @@
     </nav>
   </mat-sidenav>
 </mat-sidenav-container>
-<button mat-icon-button (click)="sidenav.toggle()">
+<button mat-icon-button i18n-aria-label="Header Menu|Toogle menu" aria-label="Toggle main menu" (click)="sidenav.toggle()">
   <mat-icon>menu</mat-icon>
 </button>
