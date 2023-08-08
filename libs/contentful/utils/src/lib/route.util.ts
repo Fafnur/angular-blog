@@ -1,4 +1,4 @@
-import { Category, Post } from '@angular-blog/posts/common';
+import { Post } from '@angular-blog/posts/common';
 
 export function getPostViewRoure(post: Post): string {
   return `  {

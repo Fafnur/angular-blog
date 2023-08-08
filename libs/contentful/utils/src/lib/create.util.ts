@@ -28,6 +28,5 @@ export function createRoutes(payload: RoutePayload): string[] {
     });
   }
 
-  // writeRoutes(payload.fileName, routes);
   return routes;
 }

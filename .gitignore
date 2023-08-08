@@ -51,6 +51,7 @@ package-lock.json
 junit.xml
 /junit
 /apps/**/dynamic-routes.txt
+/apps/**/sitemap.xml
 .yarnrc
 yarn.lock
 /apps/**/routes/blog.routes.ts

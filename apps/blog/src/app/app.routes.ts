@@ -17,11 +17,6 @@ export const appRoutes: Route[] = [
       },
       {
         path: '',
-        component: HeaderComponent,
-        outlet: 'header',
-      },
-      {
-        path: '',
         component: FooterComponent,
         outlet: 'footer',
       },
