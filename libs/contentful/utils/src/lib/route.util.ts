@@ -43,7 +43,7 @@ export function getPostCategoryRoute(posts: Post[], index: number, total: number
         loc: '/category/${category.slug}${index > 0 ? '/' + (index + 1) : ''}',
       },
       meta: {
-        title: '${category.name} от ${new Date().toLocaleDateString()}',
+        title: '${category.name} от ${new Date().toLocaleDateString()} - Angular blog',
         description: 'Последние новости в категории: ${category.name}',
       },
       breadcrumbs: [
@@ -75,7 +75,7 @@ export function getHomeRoute(posts: Post[], index: number, total: number): strin
         loc: '${index > 0 ? '/feed/' + (index + 1) : '/'}',
       },
       meta: {
-        title: 'Новости от ${new Date().toLocaleDateString()}',
+        title: 'Новости от ${new Date().toLocaleDateString()} - Angular blog',
         description: 'Последние новости на сайте',
       },
       breadcrumbs: [
