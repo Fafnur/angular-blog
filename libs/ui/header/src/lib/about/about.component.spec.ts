@@ -1,21 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockModule } from 'ng-mocks';
 
-import { PostPaginationComponent } from './post-pagination.component';
+import { AboutComponent } from './about.component';
 
-describe('PostPaginationComponent', () => {
-  let component: PostPaginationComponent;
-  let fixture: ComponentFixture<PostPaginationComponent>;
+describe('AboutComponent', () => {
+  let component: AboutComponent;
+  let fixture: ComponentFixture<AboutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PostPaginationComponent, CommonModule, RouterTestingModule, MockModule(MatButtonModule)],
+      imports: [AboutComponent, MockModule(MatIconModule), MockModule(MatButtonModule), RouterTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PostPaginationComponent);
+    fixture = TestBed.createComponent(AboutComponent);
     component = fixture.componentInstance;
   });
 

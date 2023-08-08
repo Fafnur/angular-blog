@@ -3,6 +3,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { ContainerComponent } from '@angular-blog/ui/container';
 
+import { AboutComponent } from './about/about.component';
 import { LogoComponent } from './logo/logo.component';
 import { MenuComponent } from './menu/menu.component';
 import { ThemeSwitcherComponent } from './theme-switcher/theme-switcher.component';
@@ -13,6 +14,6 @@ import { ThemeSwitcherComponent } from './theme-switcher/theme-switcher.componen
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatToolbarModule, ThemeSwitcherComponent, ContainerComponent, LogoComponent, MenuComponent],
+  imports: [MatToolbarModule, ThemeSwitcherComponent, ContainerComponent, LogoComponent, MenuComponent, AboutComponent],
 })
 export class HeaderComponent {}

@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, Inject, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { FormControl } from '@angular/forms';
 import { Platform } from '@angular/cdk/platform';
-import { CookieService, WindowService } from '@angular-blog/core';
-import { tap } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, Inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MatIconModule } from '@angular/material/icon';
+import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { tap } from 'rxjs';
+
+import { CookieService, WindowService } from '@angular-blog/core';
 
 @Component({
   selector: 'angular-blog-theme-switcher',

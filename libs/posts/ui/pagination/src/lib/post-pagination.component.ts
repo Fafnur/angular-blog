@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -11,7 +11,7 @@ import { NavigationLink } from '@angular-blog/core';
   styleUrls: ['./post-pagination.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, RouterLink, MatButtonModule],
+  imports: [NgIf, NgForOf, RouterLink, MatButtonModule],
 })
 export class PostPaginationComponent implements OnInit {
   links!: NavigationLink[];

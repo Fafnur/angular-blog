@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockComponents } from 'ng-mocks';
+
+import { ContainerComponent } from '@angular-blog/ui/container';
 
 import { AboutPageComponent } from './about-page.component';
 
@@ -8,15 +11,16 @@ describe('AboutPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AboutPageComponent],
+      imports: [AboutPageComponent, MockComponents(ContainerComponent)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AboutPageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
+
     expect(component).toBeTruthy();
   });
 });
