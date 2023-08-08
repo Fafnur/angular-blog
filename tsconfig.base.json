@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@angular-blog/about/page": ["libs/about/page/src/index.ts"],
       "@angular-blog/contentful/common": ["libs/contentful/common/src/index.ts"],
       "@angular-blog/contentful/utils": ["libs/contentful/utils/src/index.ts"],
       "@angular-blog/core": ["libs/core/src/index.ts"],
