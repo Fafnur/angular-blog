@@ -13,7 +13,7 @@ export interface MetricOptions {
   /**
    * Yandex Metrika options
    */
-  readonly ym: Record<string, unknown>;
+  readonly ym: object;
 
   /**
    * Google Analytics options
@@ -29,7 +29,7 @@ export interface MetricNavigation {
   /**
    * Yandex Metrika options
    */
-  readonly ym: Record<string, unknown>;
+  readonly ym: object;
 
   /**
    * Google Analytics options
@@ -37,7 +37,7 @@ export interface MetricNavigation {
   readonly ga: GoogleAnalyticsNavigation;
 }
 
-function isMetricOptions(options?: Record<string, unknown> | Partial<MetricOptions>): options is Partial<MetricOptions> {
+function isMetricOptions(options?: object | Partial<MetricOptions>): options is Partial<MetricOptions> {
   if (!options) {
     return false;
   }
@@ -45,7 +45,7 @@ function isMetricOptions(options?: Record<string, unknown> | Partial<MetricOptio
   return (options as Partial<MetricOptions>).ym !== undefined || (options as Partial<MetricOptions>).ga !== undefined;
 }
 
-function isMetricNavigation(options?: Record<string, unknown> | Partial<MetricNavigation>): options is Partial<MetricNavigation> {
+function isMetricNavigation(options?: object | Partial<MetricNavigation>): options is Partial<MetricNavigation> {
   if (!options) {
     return false;
   }
@@ -79,11 +79,15 @@ function isMetricNavigation(options?: Record<string, unknown> | Partial<MetricNa
   providedIn: 'root',
 })
 export class MetricService {
-  constructor(private readonly ym: YandexMetrikaService, private readonly ga: GoogleAnalyticsService, private readonly router: Router) {
+  constructor(
+    private readonly ym: YandexMetrikaService,
+    private readonly ga: GoogleAnalyticsService,
+    private readonly router: Router,
+  ) {
     this.router.events
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-        tap((event) => this.navigation(event.urlAfterRedirects))
+        tap((event) => this.navigation(event.urlAfterRedirects)),
       )
       .subscribe();
   }
@@ -98,7 +102,7 @@ export class MetricService {
    * @param url A new url
    * @param options Additional options
    */
-  navigation(url: string, options?: Record<string, unknown> | Partial<MetricNavigation>): void {
+  navigation(url: string, options?: object | Partial<MetricNavigation>): void {
     this.ym.hit(url, isMetricNavigation(options) ? options.ym : options);
     this.ga.sendNavigation(url, isMetricNavigation(options) ? options.ga : options);
   }
@@ -109,7 +113,7 @@ export class MetricService {
    * @param action Action name
    * @param options Action options
    */
-  send(action: string, options?: Record<string, unknown> | Partial<MetricOptions>): void {
+  send(action: string, options?: object | Partial<MetricOptions>): void {
     this.ym.reachGoal(action, isMetricOptions(options) ? options.ym : options);
     this.ga.sendEvent(action, isMetricOptions(options) ? options.ga : options);
   }

@@ -10,7 +10,7 @@ import { generateSitemap } from './sitemap.util';
 import { writeCategories, writeRoutesSeparate } from './write.util';
 
 export function generate(payload: { readonly categoryPath: string; readonly postsPath: string; readonly pageLimit?: number }): void {
-  const categories: Record<string, Record<string, string>> = {};
+  const categories: Record<string, object> = {};
 
   load<ContentfulCategory>({ contentType: 'category' })
     .pipe(
@@ -20,7 +20,7 @@ export function generate(payload: { readonly categoryPath: string; readonly post
             name: item.fields.name,
             slug: item.fields.slug,
           };
-        })
+        }),
       ),
       switchMap((response) => {
         const requests = [load<ContentfulPost>({ contentType: 'post' })];
@@ -31,8 +31,8 @@ export function generate(payload: { readonly categoryPath: string; readonly post
               load<ContentfulPost>({
                 contentType: 'post',
                 category: item.sys.id,
-              })
-            )
+              }),
+            ),
           );
         }
 
@@ -41,7 +41,7 @@ export function generate(payload: { readonly categoryPath: string; readonly post
       }),
       take(1),
       tap((result: ContentfulCollection<ContentfulPost>[]) => {
-        const categoriesWithPosts: Record<string, any>[] = [];
+        const categoriesWithPosts: object[] = [];
 
         const routes = result
           .map((data, index) => {
@@ -78,7 +78,7 @@ export function generate(payload: { readonly categoryPath: string; readonly post
 
         // Generate sitemap and routes for prerender
         generateSitemap('blog');
-      })
+      }),
     )
     .subscribe();
 }

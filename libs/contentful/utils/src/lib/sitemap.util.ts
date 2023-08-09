@@ -49,7 +49,7 @@ function parseSitemapConfig(source: string): Partial<SitemapConfig> {
   sitemapConfig = sitemapConfig + '}';
   sitemapConfig = sitemapConfig.replace(
     /(\w+:)|(\w+ :)/g,
-    (matchedStr: string) => '"' + matchedStr.substring(0, matchedStr.length - 1) + '":'
+    (matchedStr: string) => '"' + matchedStr.substring(0, matchedStr.length - 1) + '":',
   );
 
   return JSON.parse(sitemapConfig);
@@ -98,7 +98,7 @@ export function generateSitemap(app: string, appHost?: string, excludes: string[
   fs.writeFileSync(
     `apps/${app}/src/${sitemap}`,
     // eslint-disable-next-line max-len
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`
+    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`,
   );
   const routePaths = [...Array.from(routes), '/not-found'].sort().join('\n');
   fs.writeFileSync(`apps/${app}/dynamic-routes.txt`, routePaths);

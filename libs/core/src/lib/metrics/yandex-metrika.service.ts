@@ -106,7 +106,7 @@ export class YandexMetrikaService {
     // eslint-disable-next-line @typescript-eslint/ban-types
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     @Inject(DOCUMENT) private readonly document: Document,
-    @Optional() @Inject(YANDEX_METRIKA_CONFIG) config: Partial<YandexMetrikaConfig> | null
+    @Optional() @Inject(YANDEX_METRIKA_CONFIG) config: Partial<YandexMetrikaConfig> | null,
   ) {
     this.config = {
       ...config,
@@ -129,7 +129,7 @@ export class YandexMetrikaService {
    * @param url Url page
    * @param options Options for hit
    */
-  hit(url: string, options?: Record<string, unknown>): void {
+  hit(url: string, options?: object): void {
     let clearReferrer = false;
     if (
       !this.config.domains.every((domain) => this.document.referrer.indexOf(domain) < 0) ||
@@ -151,7 +151,7 @@ export class YandexMetrikaService {
    * @param target Target name
    * @param options Options for hit
    */
-  reachGoal(target: string, options?: Record<string, unknown>): void {
+  reachGoal(target: string, options?: object): void {
     this.counter(this.config.counter, 'reachGoal', target, options);
   }
 }

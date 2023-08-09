@@ -6,18 +6,18 @@ export function writeRoutes(fileName: string, routes: string[]): void {
   writeFileSync(
     fileName,
     `import { Route } from '@angular/router';\n\n/* eslint-disable max-len */\nexport const blogRoutes: Route[] = [\n${routes.join(
-      ',\n'
-    )}\n];`
+      ',\n',
+    )}\n];`,
   );
 }
 
-export function writeCategories(fileName: string, categories: Record<string, any>[]): void {
+export function writeCategories(fileName: string, categories: object[]): void {
   writeFileSync(
     fileName,
     // eslint-disable-next-line max-len
     `import { Category } from '@angular-blog/posts/common';\n\n/* eslint-disable max-len */\nexport const categories: Category[] = ${JSON.stringify(
-      categories
-    )};`
+      categories,
+    )};`,
   );
 }
 

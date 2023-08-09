@@ -17,6 +17,7 @@ describe('MarketsComponent', () => {
         {
           provide: IconService,
           useValue: {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             add: (name: string, source: string) => undefined,
           } as IconService,
         },
