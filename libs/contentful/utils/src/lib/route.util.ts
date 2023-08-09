@@ -2,7 +2,7 @@ import { Post } from '@angular-blog/posts/common';
 
 export function getPostViewRoure(post: Post): string {
   return `  {
-    path: '${post.slug}',
+    path: '',
     loadComponent: () => import('@angular-blog/posts/view/page').then((modules) => modules.PostViewPageComponent),
     data: {
       post: ${JSON.stringify(post)},
@@ -35,7 +35,7 @@ export function getPostCategoryRoute(posts: Post[], index: number, total: number
   const category = posts[0].category;
 
   return `  {
-    path: 'category/${category.slug}${index > 0 ? '/' + (index + 1) : ''}',
+    path: '',
     loadComponent: () => import('@angular-blog/posts/page').then((modules) => modules.PostPageComponent),
     data: {
       posts: ${JSON.stringify(posts)},
@@ -67,7 +67,7 @@ export function getPostCategoryRoute(posts: Post[], index: number, total: number
 
 export function getHomeRoute(posts: Post[], index: number, total: number): string {
   return `  {
-    path: '${index > 0 ? 'feed/' + (index + 1) : ''}',
+    path: '',
     loadComponent: () => import('@angular-blog/posts/page').then((modules) => modules.PostPageComponent),
     data: {
       posts: ${JSON.stringify(posts)},
@@ -93,9 +93,9 @@ export function getHomeRoute(posts: Post[], index: number, total: number): strin
   }`;
 }
 
-export function getRouteSeparate(hash: string): string {
+export function getRouteSeparate(path: string, hash: string | number): string {
   return `  {
-    path: '',
-  loadChildren: () => import('./routes/blog-${hash}.routes').then((modules) => modules.blogRoutes),
+    path: '${path}',
+  loadChildren: () => import('./blog-${hash}.routes').then((modules) => modules.blogRoutes),
   }`;
 }

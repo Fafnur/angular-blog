@@ -1,5 +1,7 @@
 import { writeFileSync } from 'node:fs';
 
+import { getRouteSeparate } from './route.util';
+
 export function writeRoutes(fileName: string, routes: string[]): void {
   writeFileSync(
     fileName,
@@ -24,11 +26,10 @@ export function writeRoutesSeparate(fileName: string, routes: string[]): void {
 
   routes.forEach((route, index) => {
     writeRoutes(`apps/blog/src/app/routes/blog-${index}.routes.ts`, [route]);
+    const match = route.match(/loc: '.+?'/);
+    const path = match ? match[0].slice(7, -1) : '';
 
-    separateRoutes.push(`  {
-    path: '',
-    loadChildren: () => import('./blog-${index}.routes').then((modules) => modules.blogRoutes),
-  }`);
+    separateRoutes.push(getRouteSeparate(path, index));
   });
 
   writeRoutes(fileName, separateRoutes);
