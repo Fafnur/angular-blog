@@ -158,7 +158,7 @@ export class MetaService {
     @Inject(DOCUMENT) private readonly document: Document,
     @Inject(LOCALE_ID) private readonly localeId: string,
     @Optional() @Inject(META_CONFIG) metaConfig: Partial<MetaConfig> | null,
-    @Optional() @Inject(META_CONFIG_OG) metaConfigOg: Partial<MetaConfigOg> | null
+    @Optional() @Inject(META_CONFIG_OG) metaConfigOg: Partial<MetaConfigOg> | null,
   ) {
     this.metaConfig = { ...META_CONFIG_DEFAULT, ...metaConfig };
     this.metaConfigOg = { ...META_CONFIG_OG_DEFAULT, ...metaConfigOg };
@@ -166,7 +166,7 @@ export class MetaService {
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
-        tap(() => this.update(this.getCurrent()))
+        tap(() => this.update(this.getCurrent())),
       )
       .subscribe();
   }
@@ -196,7 +196,7 @@ export class MetaService {
    */
   update(metaConfig?: Partial<MetaConfig>, metaConfigOg?: Partial<MetaConfigOg>): void {
     const config: MetaConfig = { ...this.metaConfig, ...metaConfig };
-    const configOg: MetaConfigOg = { ...this.metaConfigOg, ...metaConfigOg };
+    const configOg: MetaConfig & MetaConfigOg = { ...this.metaConfigOg, ...config, ...metaConfigOg };
     this.setCanonicalUrl(config.url);
     this.titleService.setTitle(config.title);
     this.setMetaProperty('description', config.description);
