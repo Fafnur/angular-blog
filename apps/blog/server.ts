@@ -15,7 +15,7 @@ export function app(): express.Express {
   server.use(cookieParser());
 
   const distFolder = join(process.cwd(), 'dist/apps/blog/browser/ru');
-  const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+  // const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
   server.engine('html', ngExpressEngine({ bootstrap }));
@@ -28,7 +28,7 @@ export function app(): express.Express {
     '*.*',
     express.static(distFolder, {
       maxAge: '1y',
-    })
+    }),
   );
 
   // All regular routes use the Universal engine

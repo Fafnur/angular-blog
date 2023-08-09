@@ -21,7 +21,7 @@ export interface ContentfulSys {
 /**
  * Contentful entity
  */
-export interface ContentfulEntity<T extends Record<string, any> = Record<string, any>> {
+export interface ContentfulEntity<T extends object = object> {
   /**
    * Metadata
    */

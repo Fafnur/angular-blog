@@ -166,7 +166,7 @@ export class GoogleAnalyticsService {
 
   constructor(
     @Inject(DOCUMENT) private readonly document: Document,
-    @Optional() @Inject(GA_CONFIG) config: Partial<GoogleAnalyticsConfig> | null
+    @Optional() @Inject(GA_CONFIG) config: Partial<GoogleAnalyticsConfig> | null,
   ) {
     this.config = {
       ids: config?.ids ?? [],
@@ -188,7 +188,7 @@ export class GoogleAnalyticsService {
    *
    * @param payload Payload with data
    */
-  set(payload: Record<string, unknown>): void {
+  set(payload: object): void {
     this.gtag('set', payload);
   }
 
@@ -200,7 +200,7 @@ export class GoogleAnalyticsService {
    * @param values Custom values for GA
    * @param data Custom data on GA
    */
-  sendEvent(action: string, payload?: Partial<GoogleAnalyticsEvent>, values?: Record<string, unknown>, data?: unknown): void {
+  sendEvent(action: string, payload?: Partial<GoogleAnalyticsEvent>, values?: object, data?: unknown): void {
     /* eslint-disable @typescript-eslint/naming-convention */
     this.gtag(
       'event',
@@ -211,7 +211,7 @@ export class GoogleAnalyticsService {
         value: payload?.eventValue,
         ...values,
       },
-      data
+      data,
     );
     /* eslint-enable @typescript-eslint/naming-convention */
   }

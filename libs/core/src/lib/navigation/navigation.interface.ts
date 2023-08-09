@@ -1,7 +1,7 @@
 export interface NavigationLink {
   route: string;
   label: string;
-  params?: Record<string, any>;
+  params?: object;
   fragment?: string;
   hide?: boolean;
   routerLinkActiveOptions?: boolean;
