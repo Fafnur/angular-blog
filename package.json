@@ -22,6 +22,7 @@
     "help": "nx help",
     "---- App ----": "",
     "envs": "ts-node ./scripts/envs.ts",
+    "mocks": "ts-node ./scripts/mocks.ts",
     "---- Hooks ----": "",
     "prepare": "husky install && yarn envs"
   },
