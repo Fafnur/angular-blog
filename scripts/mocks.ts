@@ -2,6 +2,27 @@ import { writeFileSync } from 'node:fs';
 
 export function run(): void {
   writeFileSync(
+    'libs/ui/categories/src/lib/categories.ts',
+    `import { Category } from '@angular-blog/posts/common';
+
+/* eslint-disable max-len */
+export const categories: Category[] = [
+  { name: 'Статьи', slug: 'stati' },
+  {
+    name: 'Экономика',
+    slug: 'ekonomika',
+  },
+  { name: 'Наука', slug: 'nauka' },
+  { name: 'Общество', slug: 'obshestvo' },
+  {
+    name: 'Политика',
+    slug: 'politika',
+  },
+];
+`,
+  );
+
+  writeFileSync(
     'apps/blog/src/app/routes/blog.routes.ts',
     `import { Route } from '@angular/router';
 export const blogRoutes: Route[] = [
