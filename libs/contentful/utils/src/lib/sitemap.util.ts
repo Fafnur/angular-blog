@@ -62,9 +62,9 @@ function getSitemapUrl(sitemap: Partial<SitemapConfig>, appHost: string): string
   if (sitemap.loc) {
     routes.add(sitemap.loc.length > 0 ? sitemap.loc : '/');
   }
-  return `<url><loc>${appHost}${sitemap.loc !== '/' ? sitemap.loc : ''}</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>${
-    sitemap.changefreq ?? 'daily'
-  }</changefreq><priority>${sitemap.priority ?? 0.8}</priority></url>`;
+  return `<url><loc>${appHost}${sitemap.loc !== '/' ? sitemap.loc : ''}</loc><lastmod>${
+    sitemap.lastmod ?? new Date().toISOString()
+  }</lastmod><changefreq>${sitemap.changefreq ?? 'daily'}</changefreq><priority>${sitemap.priority ?? 0.8}</priority></url>`;
 }
 
 function getUrls(appHost: string, app: string, excludes: string[] = []): string {
