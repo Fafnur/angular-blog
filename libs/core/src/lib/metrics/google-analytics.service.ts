@@ -198,21 +198,15 @@ export class GoogleAnalyticsService {
    * @param action Event name
    * @param payload Payload
    * @param values Custom values for GA
-   * @param data Custom data on GA
    */
-  sendEvent(action: string, payload?: Partial<GoogleAnalyticsEvent>, values?: object, data?: unknown): void {
+  sendEvent(action: string, payload?: Partial<GoogleAnalyticsEvent>, values?: object): void {
     /* eslint-disable @typescript-eslint/naming-convention */
-    this.gtag(
-      'event',
-      action,
-      {
-        event_category: payload?.eventCategory,
-        event_label: payload?.eventLabel,
-        value: payload?.eventValue,
-        ...values,
-      },
-      data,
-    );
+    this.gtag('event', action, {
+      event_category: payload?.eventCategory,
+      event_label: payload?.eventLabel,
+      value: payload?.eventValue,
+      ...values,
+    });
     /* eslint-enable @typescript-eslint/naming-convention */
   }
 
